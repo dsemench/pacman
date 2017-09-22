@@ -25,7 +25,7 @@ void General_win::drawWindow(SDL_Renderer **renderer) {
 		exit(1);
 	}
 	_window = SDL_CreateWindow("Pacman",
-							   0, 0, 800, 600, SDL_WINDOW_SHOWN);//create window by
+							   800, 500, 800, 620, SDL_WINDOW_SHOWN);//create window by
 	if (_window == __nullptr){
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		SDL_Quit();
