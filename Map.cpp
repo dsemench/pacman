@@ -44,10 +44,16 @@ Map::Map(SDL_Renderer *renderer) {
 	_renderer = renderer;
 };
 
-bool Map::getRoad(int y, int x) {
-	x = (x * -1) + 25;
-	if ((_map[y] >> x) % 2 == 1)
-		return true;
-	else
-		return false;
-}
+////_rect.h = 580;//588;//hight
+////_rect.w = 520;//528;//width
+////_rect.x = 140;//horizontal pos
+////_rect.y = 20;//vertical pos
+
+
+//bool Map::getRoad(int y, int x) {
+//	x = (x * -1) + 25;
+//	if ((_map[y] >> x) % 2 == 1)
+//		return true;
+//	else
+//		return false;
+//}

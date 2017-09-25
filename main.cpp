@@ -5,14 +5,30 @@
 #include "General_win.hpp"
 #include "Balls.hpp"
 #include "Map.hpp"
+#include "Pacman.hpp"
+
 
 using namespace std;
 
-void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, Map *Mp) {
+bool getRoad(int y, int x, int *map) {
+
+	cout << "pos x = " << x << "\n";
+	cout << "pos y = " << y << "\n";
+	if (y > 28 || x > 25)
+		return true;
+	x = (x * -1) + 25;
+	if ((map[y] >> x) % 2 == 1)
+		return true;
+	else
+		return false;
+}
+
+
+void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, int *map) {
 
 	for (int y = 0; y < 29; y++) {
 		for (int x = 0; x < 26; x++) {
-			if (!(y > 7 && y < 19 && x > 5 && x < 20) && !Mp->getRoad(y, x)) {
+			if (!(y > 7 && y < 19 && x > 5 && x < 20) && !getRoad(y, x, map)) {
 				Balls *tmp;
 				if ((y == 2 && x == 0) || (y == 2 && x == 25)
 					|| (y == 22 && x == 0) || (y == 22 && x == 25)) {
@@ -25,6 +41,10 @@ void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, Map *Mp) {
 		}
 	}
 }
+
+//void moving() {
+//
+//}
 
 int	main() {
 
@@ -41,9 +61,9 @@ int	main() {
 	gen_win->setSurfaceDraw("./images/back-ground.jpeg", renderer);
 
 	Map *Mp = new Map(renderer);
+	Pacman *Pac = new Pacman(renderer);
 
-
-	initBall(renderer, ball, Mp);
+	initBall(renderer, ball, Mp->getMap());
 	while (!exit) {
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, gen_win->getTexture(), nullptr, nullptr);
@@ -55,11 +75,18 @@ int	main() {
 			tmp_rect = ball[i]->getRect();
 			SDL_RenderCopy(renderer, ball[i]->getTexture(), nullptr, &tmp_rect);
 		}
+
+		Pac->travel(Mp->getMap());
+		tmp_rect = Pac->getRect();
+		SDL_RenderCopy(renderer, Pac->getTexture(), nullptr, &tmp_rect);
+
 		SDL_RenderPresent(renderer);//last step draw window
 
 		while (SDL_PollEvent(&event) != 0) {
 			if (event.key.keysym.sym == SDLK_ESCAPE)
 				exit = true;
+			else
+				Pac->action(event);
 		}
 	}
 	return 0;

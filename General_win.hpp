@@ -5,6 +5,7 @@
 #ifndef GENERAL_WIN_HPP
 #define GENERAL_WIN_HPP
 
+/*
 #include "SDL2/SDL.h"
 #include "SDL2_image/SDL_image.h"
 //#include "SDL2/SDL_ttf.h"
@@ -15,6 +16,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+*/
+#include "headers.hpp"
 
 
 class General_win {
@@ -23,6 +26,8 @@ protected:
 	SDL_Renderer	*_renderer;//create render
 	SDL_Surface		*_picture;
 	SDL_Texture		*_texture;
+	SDL_Rect		_rect;
+
 public:
 	General_win() {};
 	virtual ~General_win();
@@ -34,6 +39,7 @@ public:
 
 	SDL_Window *getWindow() { return _window; };
 	SDL_Texture *getTexture() { return _texture; };
+	SDL_Rect getRect() { return _rect; };
 };
 
 
