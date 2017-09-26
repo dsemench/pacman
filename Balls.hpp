@@ -8,8 +8,11 @@
 #include "General_win.hpp"
 
 class Balls : public General_win {
+private:
+	bool _ball_big;
 public:
 	Balls(int i, SDL_Renderer *renderer, int m_y, int m_x);
+	bool getBallsize() { return _ball_big; };
 };
 
 
