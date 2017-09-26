@@ -26,7 +26,10 @@ Pacman::Pacman(SDL_Renderer *renderer) {
 	_arr_texture[6] = _texture;
 	setSurfaceDraw("./images/pacman/pro.png", renderer);
 	_arr_texture[7] = _texture;
+<<<<<<< HEAD
 	_texture = _arr_texture[0];
+=======
+>>>>>>> 6feafa3cfe02f7be35e1526548dba622fa8fb74a
 }
 
 void Pacman::changePic(int vect) {
