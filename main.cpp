@@ -7,13 +7,12 @@
 #include "Map.hpp"
 #include "Pacman.hpp"
 
-
 using namespace std;
 
 bool getRoad(int y, int x, int *map) {
 
-	cout << "pos x = " << x << "\n";
-	cout << "pos y = " << y << "\n";
+//	cout << "pos x = " << x << "\n";
+//	cout << "pos y = " << y << "\n";
 	if (y > 28 || x > 25)
 		return true;
 	x = (x * -1) + 25;
@@ -50,6 +49,7 @@ int	main() {
 
 	bool exit = false;
 //	bool pause = false;
+	bool delay = false;
 	SDL_Event event;
 	SDL_Renderer *renderer = nullptr;//__nullptr
 	General_win *gen_win = new General_win();
@@ -76,7 +76,12 @@ int	main() {
 			SDL_RenderCopy(renderer, ball[i]->getTexture(), nullptr, &tmp_rect);
 		}
 
-		Pac->travel(Mp->getMap());
+		if (delay) {
+			Pac->travel(Mp->getMap(), renderer);
+			delay = false;
+		}
+		else
+			delay = true;
 		tmp_rect = Pac->getRect();
 		SDL_RenderCopy(renderer, Pac->getTexture(), nullptr, &tmp_rect);
 

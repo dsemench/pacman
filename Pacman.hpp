@@ -16,7 +16,8 @@ public:
 	Pacman(SDL_Renderer *renderer);
 
 	void action(SDL_Event event);
-	void travel(int *map);
+	void travel(int *map, SDL_Renderer *renderer);
+	void changePic(int vect, SDL_Renderer *renderer);
 };
 
 
