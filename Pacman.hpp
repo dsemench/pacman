@@ -11,13 +11,14 @@
 class Pacman : public General_win {
 protected:
 	int _vect;
+	SDL_Texture *_arr_texture[8];
 public:
 	int getvect() { return _vect; };
 	Pacman(SDL_Renderer *renderer);
 
 	void action(SDL_Event event);
-	void travel(int *map, SDL_Renderer *renderer);
-	void changePic(int vect, SDL_Renderer *renderer);
+	void travel(int *map);
+	void changePic(int vect);
 };
 
 

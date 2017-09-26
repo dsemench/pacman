@@ -13,7 +13,7 @@ bool getRoad(int y, int x, int *map) {
 
 //	cout << "pos x = " << x << "\n";
 //	cout << "pos y = " << y << "\n";
-	if (y > 28 || x > 25)
+	if (y < 0 || y > 28 || x < 0 || x > 25)
 		return true;
 	x = (x * -1) + 25;
 	if ((map[y] >> x) % 2 == 1)
@@ -28,22 +28,21 @@ void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, int *map) {
 	for (int y = 0; y < 29; y++) {
 		for (int x = 0; x < 26; x++) {
 			if (!(y > 7 && y < 19 && x > 5 && x < 20) && !getRoad(y, x, map)) {
-				Balls *tmp;
+				Balls *tmp = nullptr;
 				if ((y == 2 && x == 0) || (y == 2 && x == 25)
 					|| (y == 22 && x == 0) || (y == 22 && x == 25)) {
 					tmp = new Balls(1, renderer, y, x);
 				}
-				else
-					tmp = new Balls(0, renderer, y, x);
-				ball.push_back(tmp);
+				else {
+					if (!(y == 22 && (x == 12 || x == 13)))
+						tmp = new Balls(0, renderer, y, x);
+				}
+				if (tmp != nullptr)
+					ball.push_back(tmp);
 			}
 		}
 	}
 }
-
-//void moving() {
-//
-//}
 
 int	main() {
 
@@ -51,7 +50,7 @@ int	main() {
 //	bool pause = false;
 	bool delay = false;
 	SDL_Event event;
-	SDL_Renderer *renderer = nullptr;//__nullptr
+	SDL_Renderer *renderer = nullptr;
 	General_win *gen_win = new General_win();
 	SDL_Rect tmp_rect;
 	vector<Balls*> ball;
@@ -73,11 +72,17 @@ int	main() {
 
 		for (size_t i = 0; i < ball.size(); i++){
 			tmp_rect = ball[i]->getRect();
-			SDL_RenderCopy(renderer, ball[i]->getTexture(), nullptr, &tmp_rect);
+			SDL_Rect tmp_rect1 = Pac->getRect();
+			if (SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
+				ball.erase(ball.begin() + i);
+				i--;
+			}
+			else
+				SDL_RenderCopy(renderer, ball[i]->getTexture(), nullptr, &tmp_rect);
 		}
 
 		if (delay) {
-			Pac->travel(Mp->getMap(), renderer);
+			Pac->travel(Mp->getMap());
 			delay = false;
 		}
 		else

@@ -12,10 +12,10 @@ Balls::Balls(int i, SDL_Renderer *renderer, int m_y, int m_x) {
 
 	if (i == 0) {
 		setSurfaceDraw("./images/balls_cherry/t1.png", renderer);
+		_ball_big = false;
 	}
 	else if (i == 1) {
 		setSurfaceDraw("./images/balls_cherry/t2.png", renderer);
+		_ball_big = true;
 	}
-
-	_renderer = renderer;
 }

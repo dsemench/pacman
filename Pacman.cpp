@@ -11,54 +11,52 @@ Pacman::Pacman(SDL_Renderer *renderer) {
 	_rect.x = 140 + (12 * 20) + 10;//horizontal pos
 	_rect.y = 20 + (22 * 20);// vertical pos
 	setSurfaceDraw("./images/pacman/puc.png", renderer);
-	_renderer = renderer;
+	_arr_texture[0] = _texture;
+	setSurfaceDraw("./images/pacman/puo.png", renderer);
+	_arr_texture[1] = _texture;
+	setSurfaceDraw("./images/pacman/pdc.png", renderer);
+	_arr_texture[2] = _texture;
+	setSurfaceDraw("./images/pacman/pdo.png", renderer);
+	_arr_texture[3] = _texture;
+	setSurfaceDraw("./images/pacman/plc.png", renderer);
+	_arr_texture[4] = _texture;
+	setSurfaceDraw("./images/pacman/plo.png", renderer);
+	_arr_texture[5] = _texture;
+	setSurfaceDraw("./images/pacman/prc.png", renderer);
+	_arr_texture[6] = _texture;
+	setSurfaceDraw("./images/pacman/pro.png", renderer);
+	_arr_texture[7] = _texture;
 }
 
-void Pacman::changePic(int vect, SDL_Renderer *renderer) {
+void Pacman::changePic(int vect) {
 	static int old_pic;
 
 	if (old_pic == 0)
 		old_pic = vect * 10;
 	switch (old_pic / 10) {
 		case 1:
-			if ((old_pic % 10) == 0) {
-				setSurfaceDraw("./images/pacman/puc.png", renderer);
-				_renderer = renderer;
-			}
-			else {
-				setSurfaceDraw("./images/pacman/puo.png", renderer);
-				_renderer = renderer;
-			}
+			if ((old_pic % 10) == 0)
+				_texture = _arr_texture[0];
+			else
+				_texture = _arr_texture[1];
 			break;
 		case 2:
-			if ((old_pic % 20) == 0) {
-				setSurfaceDraw("./images/pacman/pdc.png", renderer);
-				_renderer = renderer;
-			}
-			else {
-				setSurfaceDraw("./images/pacman/pdo.png", renderer);
-				_renderer = renderer;
-			}
+			if ((old_pic % 20) == 0)
+				_texture = _arr_texture[2];
+			else
+				_texture = _arr_texture[3];
 			break;
 		case 3:
-			if ((old_pic % 30) == 0) {
-				setSurfaceDraw("./images/pacman/plc.png", renderer);
-				_renderer = renderer;
-			}
-			else {
-				setSurfaceDraw("./images/pacman/plo.png", renderer);
-				_renderer = renderer;
-			}
+			if ((old_pic % 30) == 0)
+				_texture = _arr_texture[4];
+			else
+				_texture = _arr_texture[5];
 			break;
 		case 4:
-			if ((old_pic % 40) == 0) {
-				setSurfaceDraw("./images/pacman/prc.png", renderer);
-				_renderer = renderer;
-			}
-			else {
-				setSurfaceDraw("./images/pacman/pro.png", renderer);
-				_renderer = renderer;
-			}
+			if ((old_pic % 40) == 0)
+				_texture = _arr_texture[6];
+			else
+				_texture = _arr_texture[7];
 			break;
 		default:
 			break;
@@ -69,7 +67,7 @@ void Pacman::changePic(int vect, SDL_Renderer *renderer) {
 		old_pic = (vect * 10) + 1;
 }
 
-void Pacman::travel(int *map, SDL_Renderer *renderer){
+void Pacman::travel(int *map){
 	static int vect;
 	int x = _rect.x - 140, y = _rect.y - 20;
 	int min = 1;
@@ -77,19 +75,19 @@ void Pacman::travel(int *map, SDL_Renderer *renderer){
 	if (vect != 0 && _rect.x != 390 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {
 		if (vect == 1) {
 			_rect.y -= min;
-			changePic(vect, renderer);
+			changePic(vect);
 		}
 		else if (vect == 2) {
 			_rect.y += min;
-			changePic(vect, renderer);
+			changePic(vect);
 		}
 		else if (vect == 3) {
 			_rect.x -= min;
-			changePic(vect, renderer);
+			changePic(vect);
 		}
 		else if (vect == 4) {
 			_rect.x += min;
-			changePic(vect, renderer);
+			changePic(vect);
 		}
 	}
 	else {
@@ -97,14 +95,14 @@ void Pacman::travel(int *map, SDL_Renderer *renderer){
 			if ((y - 20) >= 0) {
 				_rect.y -= min;
 				vect = _vect;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 		}
 		else if (_vect == 2 && !getRoad((y + 20) / 20, x / 20, map)) {
 			if ((y + 20) <= 580) {
 				_rect.y += min;
 				vect = _vect;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 
 		}
@@ -112,35 +110,34 @@ void Pacman::travel(int *map, SDL_Renderer *renderer){
 			if ((x - 20) >= 0) {
 				_rect.x -= min;
 				vect = _vect;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 		}
 		else if (_vect == 4 && !getRoad(y / 20, (x + 20) / 20, map)) {
 			if ((x + 20) <= 500) {
 				_rect.x += min;
 				vect = _vect;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 		}
 		else {
 			if (vect == 1 && !getRoad((y - 20) / 20, x / 20, map)) {
 				_rect.y -= min;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 			else if (vect == 2 && !getRoad((y + 20) / 20, x / 20, map)) {
 				_rect.y += min;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 			else if (vect == 3 && !getRoad(y / 20, (x - 20) / 20, map)) {
 				_rect.x -= min;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 			else if (vect == 4 && !getRoad(y / 20, (x + 20) / 20, map)) {
 				_rect.x += min;
-				changePic(vect, renderer);
+				changePic(vect);
 			}
 		}
-
 	}
 }
 
