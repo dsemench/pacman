@@ -40,8 +40,10 @@ void General_win::drawWindow(SDL_Renderer **renderer) {
 	}
 }
 void General_win::setSurfaceDraw(const char *image, SDL_Renderer *renderer) {
-	_picture = IMG_Load(image);
-	if (_picture == __nullptr){
+	SDL_Surface		*picture;
+
+	picture = IMG_Load(image);
+	if (picture == __nullptr){
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(_window);
 		std::cout << "SDL_Load Error: " << SDL_GetError()
@@ -49,8 +51,8 @@ void General_win::setSurfaceDraw(const char *image, SDL_Renderer *renderer) {
 		SDL_Quit();
 		exit(1);
 	}
-	_texture = SDL_CreateTextureFromSurface(renderer, _picture);
-	SDL_FreeSurface(_picture);
+	_texture = SDL_CreateTextureFromSurface(renderer, picture);
+	SDL_FreeSurface(picture);
 	if (_texture == __nullptr){
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(_window);

@@ -9,12 +9,13 @@
 #include "headers.hpp"
 
 class Pacman : public General_win {
-protected:
+private:
 	int _vect;
 	SDL_Texture *_arr_texture[8];
 public:
-	int getvect() { return _vect; };
 	Pacman(SDL_Renderer *renderer);
+
+	int getvect() { return _vect; };
 
 	void action(SDL_Event event);
 	void travel(int *map);

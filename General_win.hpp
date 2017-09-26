@@ -24,7 +24,6 @@ class General_win {
 protected:
 	SDL_Window		*_window;//create window
 	SDL_Renderer	*_renderer;//create render
-	SDL_Surface		*_picture;
 	SDL_Texture		*_texture;
 	SDL_Rect		_rect;
 

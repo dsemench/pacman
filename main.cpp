@@ -6,6 +6,7 @@
 #include "Balls.hpp"
 #include "Map.hpp"
 #include "Pacman.hpp"
+#include "Enemy.hpp"
 
 using namespace std;
 
@@ -49,11 +50,13 @@ int	main() {
 	bool exit = false;
 //	bool pause = false;
 	bool delay = false;
+	int can_eat_en = 0;
 	SDL_Event event;
 	SDL_Renderer *renderer = nullptr;
 	General_win *gen_win = new General_win();
 	SDL_Rect tmp_rect;
 	vector<Balls*> ball;
+	vector<Enemy*> en;
 
 
 	gen_win->drawWindow(&renderer);
@@ -61,6 +64,10 @@ int	main() {
 
 	Map *Mp = new Map(renderer);
 	Pacman *Pac = new Pacman(renderer);
+	for (int i = 0; i < 4; ++i) {
+		Enemy *tmp_en = new Enemy(i + 1, renderer);
+		en.push_back(tmp_en);
+	}
 
 	initBall(renderer, ball, Mp->getMap());
 	while (!exit) {
@@ -74,6 +81,10 @@ int	main() {
 			tmp_rect = ball[i]->getRect();
 			SDL_Rect tmp_rect1 = Pac->getRect();
 			if (SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
+				if (ball[i]->getBallsize()) {
+					can_eat_en = 11000;
+//					cout << "bigball\n";
+				}
 				ball.erase(ball.begin() + i);
 				i--;
 			}
@@ -87,6 +98,20 @@ int	main() {
 		}
 		else
 			delay = true;
+		for (size_t i = 0; i < en.size(); i++) {
+			tmp_rect = en[i]->getRect();
+			if (can_eat_en) {
+				en[i]->changeimg(4);
+				can_eat_en--;
+			}
+			else
+				en[i]->changeimg(1);
+			SDL_RenderCopy(renderer, en[i]->getTexture(), nullptr, &tmp_rect);
+		}
+		if (ball.size() == 0) {
+			cout << "you win!\n";
+			exit = true;
+		}
 		tmp_rect = Pac->getRect();
 		SDL_RenderCopy(renderer, Pac->getTexture(), nullptr, &tmp_rect);
 

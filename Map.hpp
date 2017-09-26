@@ -13,7 +13,6 @@ private:
 public:
 	Map(SDL_Renderer *renderer);
 	int *getMap() { return _map; };
-//	bool getRoad(int y, int x);
 };
 
 
