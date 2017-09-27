@@ -26,10 +26,7 @@ Pacman::Pacman(SDL_Renderer *renderer) {
 	_arr_texture[6] = _texture;
 	setSurfaceDraw("./images/pacman/pro.png", renderer);
 	_arr_texture[7] = _texture;
-<<<<<<< HEAD
 	_texture = _arr_texture[0];
-=======
->>>>>>> 6feafa3cfe02f7be35e1526548dba622fa8fb74a
 }
 
 void Pacman::changePic(int vect) {
@@ -73,7 +70,7 @@ void Pacman::changePic(int vect) {
 
 void Pacman::travel(int *map){
 	static int vect;
-	int x = _rect.x - 140, y = _rect.y - 20;
+	int x = _rect.x - 140, y = _rect.y - 20;//сократить обьявление переменных
 	int min = 1;
 
 	if (vect != 0 && _rect.x != 390 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {

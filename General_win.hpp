@@ -31,7 +31,7 @@ public:
 	General_win() {};
 	virtual ~General_win();
 
-	static int	makeRand(int);
+//	static int	makeRand(int);
 	void		drawWindow(SDL_Renderer **);
 	void		setSurfaceDraw(const char *image,
 						SDL_Renderer *_renderer);//draw img in texture

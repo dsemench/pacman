@@ -11,6 +11,7 @@ General_win::~General_win() {
 	SDL_Quit();
 }
 
+/*
 int General_win::makeRand(int r) {
 	int res;
 
@@ -18,6 +19,7 @@ int General_win::makeRand(int r) {
 	std::cout << "rand = " << res << "\n";
 	return res;
 }
+*/
 
 void General_win::drawWindow(SDL_Renderer **renderer) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){//init sdl process

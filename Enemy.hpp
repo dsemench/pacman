@@ -10,13 +10,21 @@
 
 class Enemy : public General_win {
 private:
-//	int _vect;
+	bool _hunter;
+	int count_steps;
+	int vect;
+	int old_vect;
+	int _vect, _speed;
 	SDL_Texture *_arr_texture[5];
+
 public:
 	Enemy(int i, SDL_Renderer *renderer);
 
-	void changeimg(int i) { _texture = _arr_texture[i]; };
-
+	int	makeRand(int r);
+	void changeimg(bool condition);
+	void action(int *map);
+	void setVect(int i) { _vect = i; };
+	int makeChoice(int y, int x,int *map);
 };
 
 

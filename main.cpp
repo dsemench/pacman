@@ -12,8 +12,10 @@ using namespace std;
 
 bool getRoad(int y, int x, int *map) {
 
-//	cout << "pos x = " << x << "\n";
-//	cout << "pos y = " << y << "\n";
+//	if (y < 12 || y > 17 || x < 11 || x > 16) {
+//		cout << "pos x = " << x << "\n";
+//		cout << "pos y = " << y << "\n";
+//	}
 	if (y < 0 || y > 28 || x < 0 || x > 25)
 		return true;
 	x = (x * -1) + 25;
@@ -62,9 +64,11 @@ int	main() {
 	gen_win->drawWindow(&renderer);
 	gen_win->setSurfaceDraw("./images/back-ground.jpeg", renderer);
 
+
 	Map *Mp = new Map(renderer);
 	Pacman *Pac = new Pacman(renderer);
-	for (int i = 0; i < 4; ++i) {
+	srand(time(0));
+	for (int i = 0; i < 2; ++i) {
 		Enemy *tmp_en = new Enemy(i + 1, renderer);
 		en.push_back(tmp_en);
 	}
@@ -82,8 +86,7 @@ int	main() {
 			SDL_Rect tmp_rect1 = Pac->getRect();
 			if (SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
 				if (ball[i]->getBallsize()) {
-					can_eat_en = 11000;
-//					cout << "bigball\n";
+					can_eat_en += 5000;
 				}
 				ball.erase(ball.begin() + i);
 				i--;
@@ -98,14 +101,17 @@ int	main() {
 		}
 		else
 			delay = true;
+
 		for (size_t i = 0; i < en.size(); i++) {
 			tmp_rect = en[i]->getRect();
+			if (delay)
+				en[i]->action(Mp->getMap());
 			if (can_eat_en) {
-				en[i]->changeimg(4);
+				en[i]->changeimg(false);
 				can_eat_en--;
 			}
 			else
-				en[i]->changeimg(1);
+				en[i]->changeimg(true);
 			SDL_RenderCopy(renderer, en[i]->getTexture(), nullptr, &tmp_rect);
 		}
 		if (ball.size() == 0) {
