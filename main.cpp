@@ -129,6 +129,10 @@ int	main() {
 			else
 				Pac->action(event);
 		}
+		for (int j = 0; j < 10000; ++j);
+		for (int j = 0; j < 10000; ++j);
+		for (int j = 0; j < 10000; ++j);
+		for (int j = 0; j < 10000; ++j);
 	}
 	return 0;
 }

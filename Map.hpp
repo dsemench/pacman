@@ -13,6 +13,7 @@ private:
 public:
 	Map(SDL_Renderer *renderer);
 	int *getMap() { return _map; };
+	//functions to open and close door for enemies
 };
 
 

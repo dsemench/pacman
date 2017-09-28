@@ -11,7 +11,9 @@
 class Enemy : public General_win {
 private:
 	bool _hunter;
-	int count_steps;
+	int _num_en;
+//	int count_steps;
+	int old_y_x[4];
 	int vect;
 	int old_vect;
 	int _vect, _speed;
