@@ -47,6 +47,13 @@ void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, int *map) {
 	}
 }
 
+SDL_Point *take_SDL_point(SDL_Rect rect) {
+	SDL_Point *res = nullptr;
+	res->x = rect.x;
+	res->y = rect.y;
+	return res;
+}
+
 int	main() {
 
 	bool exit = false;
@@ -87,6 +94,7 @@ int	main() {
 			if (SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
 				if (ball[i]->getBallsize()) {
 					can_eat_en += 5000;
+					can_eat_en += 5000;
 				}
 				ball.erase(ball.begin() + i);
 				i--;
@@ -103,15 +111,45 @@ int	main() {
 			delay = true;
 
 		for (size_t i = 0; i < en.size(); i++) {
+			SDL_Rect tmp_rect1 = Pac->getRect();
+			SDL_Point *tmp_ptr;// = { tmp_rect.x, tmp_rect.y};
+			*tmp_ptr = { tmp_rect.x, tmp_rect.y};
 			tmp_rect = en[i]->getRect();
-			if (delay)
-				en[i]->action(Mp->getMap());
 			if (can_eat_en) {
 				en[i]->changeimg(false);
 				can_eat_en--;
 			}
 			else
 				en[i]->changeimg(true);
+//			if (!en[i]->getRun() && !SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
+			if (!en[i]->getRun() && !SDL_PointInRect(tmp_ptr, &tmp_rect)) {
+				if (delay)
+					en[i]->action(Mp->getMap());
+/*
+				if (can_eat_en) {
+					en[i]->changeimg(false);
+					can_eat_en--;
+				}
+				else
+					en[i]->changeimg(true);
+*/
+			}
+			else {
+				cout << "eat-eat i = " << i << "\n";
+				if (en[i]->getRun()) {
+					//enemy run home
+//					en[i]->runhome();
+				}
+				else {
+					if (en[i]->getHunt()) {
+						//problem for pacman
+					}
+					else {
+						en[i]->setRun(true);
+//						en[i]->runhome();
+					}
+				}
+			}
 			SDL_RenderCopy(renderer, en[i]->getTexture(), nullptr, &tmp_rect);
 		}
 		if (ball.size() == 0) {

@@ -11,22 +11,27 @@
 class Enemy : public General_win {
 private:
 	bool _hunter;
-	int _num_en;
-//	int count_steps;
+	bool _run;
 	int old_y_x[2];
 	int vect;
-	int old_vect;
 	int _vect, _speed;
-	SDL_Texture *_arr_texture[5];
+	SDL_Texture *_arr_texture[9];
 
 public:
 	Enemy(int i, SDL_Renderer *renderer);
 
 	int	makeRand(int r);
-	void changeimg(bool condition);
+	void changeimg(bool condition, bool run = false);
 	void action(int *map);
 	void setVect(int i) { _vect = i; };
 	int makeChoice(int y, int x,int *map);
+
+	bool getHunt() { return _hunter; };
+	void setHunt(bool condition) { _run = condition; };
+	bool getRun() { return _run; };
+	void setRun(bool condition) { _run = condition; };
+
+	void runhome();// when enemy
 };
 
 

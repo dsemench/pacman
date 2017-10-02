@@ -28,5 +28,6 @@ class Balls;
 
 bool getRoad(int y, int x, int *map);
 void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, int *map);
+SDL_Point getSDL_point(SDL_Rect rect);
 
 #endif //PACMAN_HEADERS_HPP

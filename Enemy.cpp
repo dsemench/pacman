@@ -7,11 +7,10 @@
 Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	string address_img;//("./images/enemy/");
 
-	_num_en = i;
 	old_y_x[0] = old_y_x[1] = 0;
-	old_vect = 0;
 	_vect = 4;
 	vect = 4;
+	_run = false;
 	_speed = 1;
 	_rect.h = 20;
 	_rect.w = 20;
@@ -30,6 +29,23 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	address_img = "./images/enemy/" + to_string(i) + to_string(4) + ".png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[0] = _texture;
+//	address_img = "./images/enemy/" + to_string(b) + to_string(1) + ".png";
+	address_img = "./images/balls_cherry/b1.png";
+	setSurfaceDraw(address_img.c_str(), renderer);
+	_arr_texture[5] = _texture;
+//	address_img = "./images/enemy/" + to_string(i) + to_string(2) + ".png";
+	address_img = "./images/balls_cherry/b1.png";
+	setSurfaceDraw(address_img.c_str(), renderer);
+	_arr_texture[6] = _texture;
+//	address_img = "./images/enemy/" + to_string(i) + to_string(3) + ".png";
+	address_img = "./images/balls_cherry/b1.png";
+	setSurfaceDraw(address_img.c_str(), renderer);
+	_arr_texture[7] = _texture;
+//	address_img = "./images/enemy/" + to_string(i) + to_string(4) + ".png";
+	address_img = "./images/balls_cherry/b1.png";
+	setSurfaceDraw(address_img.c_str(), renderer);
+	_arr_texture[8] = _texture;
+
 	address_img = "./images/enemy/" + to_string(61) + ".png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[4] = _texture;
@@ -91,37 +107,38 @@ void Enemy::action(int *map) {
 		_vect = makeChoice(y, x, map);
 }
 
-void Enemy::changeimg(bool condition) {
-
-	if (_hunter == condition)
-		return ;
-	if (!condition)
-		_texture = _arr_texture[4];
-	else {
-		if (_vect < 5) {
-			_texture = _arr_texture[1];
+void Enemy::changeimg(bool condition, bool run) {
+	if (!run) {
+		if (_hunter == condition)
+			return;
+		if (!condition)
+			_texture = _arr_texture[4];
+		else {
+			if (_vect < 5) {
+				_texture = _arr_texture[1];
+			}
 		}
+		_hunter = condition;
 	}
-	_hunter = condition;
 }
 
 int Enemy::makeChoice(int y, int x, int *map) {
 	vector<int> choise;
 	int res = 0;
 
-	if (!getRoad((y - 20) / 20, x / 20, map) && _vect != 2
+	if (_vect != 2 && !getRoad((y - 20) / 20, x / 20, map)
 		&& ((y - 20) != old_y_x[0])) {
 		choise.push_back(1);
 	}
-	if (!getRoad((y + 20) / 20, x / 20, map) && _vect != 1
+	if (_vect != 1 && !getRoad((y + 20) / 20, x / 20, map)
 		&& ((y + 20) != old_y_x[0])) {
 		choise.push_back(2);
 	}
-	if (!getRoad(y / 20, (x - 20) / 20, map) && _vect != 4
+	if (_vect != 4 && !getRoad(y / 20, (x - 20) / 20, map)
 		&& ((x - 20) != old_y_x[1])) {
 		choise.push_back(3);
 	}
-	if (!getRoad(y / 20, (x + 20) / 20, map) && _vect != 3
+	if (_vect != 3 && !getRoad(y / 20, (x + 20) / 20, map)
 		&& ((x + 20) != old_y_x[1])) {
 		choise.push_back(4);
 	}
@@ -141,6 +158,10 @@ int Enemy::makeChoice(int y, int x, int *map) {
 	}
 	else
 		return choise[0];
-	old_vect = _vect;
 	return res;
 }
+
+void Enemy::runhome() {
+
+}
+

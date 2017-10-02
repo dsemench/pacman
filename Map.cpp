@@ -16,7 +16,8 @@ Map::Map(SDL_Renderer *renderer) {
 	_map[8] = 66041823;
 	_map[9] = 66041823;
 	_map[10] = 65798367;
-	_map[11] = 65928927;//open room 65916639 close 65928927
+//	_map[11] = 65928927;//open room 65916639 close 65928927
+	_map[11] = 65916639;//open room 65916639
 	_map[12] = 65864415;//enemy room
 	_map[13] = 65077791;//enemy room
 	_map[14] = 65864415;//enemy room
