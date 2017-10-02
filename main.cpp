@@ -47,10 +47,10 @@ void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, int *map) {
 	}
 }
 
-SDL_Point *take_SDL_point(SDL_Rect rect) {
-	SDL_Point *res = nullptr;
-	res->x = rect.x;
-	res->y = rect.y;
+SDL_Point take_SDL_point(SDL_Rect rect) {
+	SDL_Point res;
+	res.x = rect.x;
+	res.y = rect.y;
 	return res;
 }
 
@@ -75,7 +75,7 @@ int	main() {
 	Map *Mp = new Map(renderer);
 	Pacman *Pac = new Pacman(renderer);
 	srand(time(0));
-	for (int i = 0; i < 2; ++i) {
+	for (int i = 0; i < 4; ++i) {
 		Enemy *tmp_en = new Enemy(i + 1, renderer);
 		en.push_back(tmp_en);
 	}
@@ -95,6 +95,7 @@ int	main() {
 				if (ball[i]->getBallsize()) {
 					can_eat_en += 5000;
 					can_eat_en += 5000;
+					can_eat_en += 5000;
 				}
 				ball.erase(ball.begin() + i);
 				i--;
@@ -111,9 +112,7 @@ int	main() {
 			delay = true;
 
 		for (size_t i = 0; i < en.size(); i++) {
-			SDL_Rect tmp_rect1 = Pac->getRect();
-			SDL_Point *tmp_ptr;// = { tmp_rect.x, tmp_rect.y};
-			*tmp_ptr = { tmp_rect.x, tmp_rect.y};
+			SDL_Point tmp_ptr = take_SDL_point(Pac->getRect());
 			tmp_rect = en[i]->getRect();
 			if (can_eat_en) {
 				en[i]->changeimg(false);
@@ -121,32 +120,24 @@ int	main() {
 			}
 			else
 				en[i]->changeimg(true);
-//			if (!en[i]->getRun() && !SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
-			if (!en[i]->getRun() && !SDL_PointInRect(tmp_ptr, &tmp_rect)) {
+			if (!en[i]->getRun() && !SDL_PointInRect(&tmp_ptr, &tmp_rect)) {
 				if (delay)
 					en[i]->action(Mp->getMap());
-/*
-				if (can_eat_en) {
-					en[i]->changeimg(false);
-					can_eat_en--;
-				}
-				else
-					en[i]->changeimg(true);
-*/
 			}
 			else {
-				cout << "eat-eat i = " << i << "\n";
+//				cout << "eat-eat i = " << i << "\n";
 				if (en[i]->getRun()) {
 					//enemy run home
-//					en[i]->runhome();
+					en[i]->runhome(Mp->getMap());
 				}
 				else {
 					if (en[i]->getHunt()) {
 						//problem for pacman
 					}
 					else {
+//						en[i]->changeimg(false, true);
 						en[i]->setRun(true);
-//						en[i]->runhome();
+						en[i]->runhome(Mp->getMap());
 					}
 				}
 			}

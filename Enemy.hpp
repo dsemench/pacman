@@ -23,15 +23,16 @@ public:
 	int	makeRand(int r);
 	void changeimg(bool condition, bool run = false);
 	void action(int *map);
+	bool finish_mov_pos();
 	void setVect(int i) { _vect = i; };
-	int makeChoice(int y, int x,int *map);
+	int makeChoice(int y, int x, int *map);
 
 	bool getHunt() { return _hunter; };
 	void setHunt(bool condition) { _run = condition; };
 	bool getRun() { return _run; };
 	void setRun(bool condition) { _run = condition; };
 
-	void runhome();// when enemy
+	void runhome(int *map);// when enemy
 };
 
 

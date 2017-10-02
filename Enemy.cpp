@@ -70,18 +70,7 @@ void Enemy::action(int *map) {
 	if (_hunter)
 		_texture = _arr_texture[vect - 1];
 	if (vect != 0 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {//make virtual for two classes
- 		if (vect == 1) {
-			_rect.y -= _speed;
-		}
-		else if (vect == 2) {
-			_rect.y += _speed;
-		}
-		else if (vect == 3) {
-			_rect.x -= _speed;
-		}
-		else if (vect == 4) {
-			_rect.x += _speed;
-		}
+		finish_mov_pos();
 		if (_rect.y % 20 == 0 && _rect.x % 20 == 0)
 			check = true;
 	}
@@ -107,6 +96,28 @@ void Enemy::action(int *map) {
 		_vect = makeChoice(y, x, map);
 }
 
+bool Enemy::finish_mov_pos() {
+	if (_rect.y % 20 != 0 || _rect.x % 20 != 0) {
+		if (vect == 1) {
+			_rect.y -= _speed;
+			return false;
+		}
+		else if (vect == 2) {
+			_rect.y += _speed;
+			return false;
+		}
+		else if (vect == 3) {
+			_rect.x -= _speed;
+			return false;
+		}
+		else if (vect == 4) {
+			_rect.x += _speed;
+			return false;
+		}
+	}
+	return true;
+}
+
 void Enemy::changeimg(bool condition, bool run) {
 	if (!run) {
 		if (_hunter == condition)
@@ -120,6 +131,8 @@ void Enemy::changeimg(bool condition, bool run) {
 		}
 		_hunter = condition;
 	}
+	else
+		_texture = _arr_texture[_vect + 4];
 }
 
 int Enemy::makeChoice(int y, int x, int *map) {
@@ -161,7 +174,80 @@ int Enemy::makeChoice(int y, int x, int *map) {
 	return res;
 }
 
-void Enemy::runhome() {
+void Enemy::runhome(int *map) {
+	vector<int> choise;
+	int x = _rect.x - 140, y = _rect.y - 20;//current position
 
+	if (finish_mov_pos()) {
+		pair<int, int> res(100, 100);
+
+		if (!getRoad((y - 20) / 20, x / 20, map)
+			&& ((y - 20) != old_y_x[0])) {
+			choise.push_back(1);
+		}
+		if (!getRoad((y + 20) / 20, x / 20, map)
+			&& ((y + 20) != old_y_x[0])) {
+			choise.push_back(2);
+		}
+		if (!getRoad(y / 20, (x - 20) / 20, map)
+			&& ((x - 20) != old_y_x[1])) {
+			choise.push_back(3);
+		}
+		if (!getRoad(y / 20, (x + 20) / 20, map)
+			&& ((x + 20) != old_y_x[1])) {
+			choise.push_back(4);
+		}
+//	for (size_t i = 0; i < choise.size(); i++) {
+//		cout << choise[i] << " ";
+//	}
+//	cout << "\n";
+		if (find(choise.begin(), choise.end(), 1) != choise.end()
+			&& res.second > (13 - ((y - 20) / 20))) {
+			res.first = 1;
+			res.second = 13 - ((y - 20) / 20);
+		}
+		if (find(choise.begin(), choise.end(), 2) != choise.end()
+			&& res.second > (((y + 20) / 20) - 13)) {
+			res.first = 2;
+			res.second = ((y + 20) / 20) - 13;
+		}
+		if (find(choise.begin(), choise.end(), 3) != choise.end()
+			&& res.second > (13 - ((x - 20) / 20))) {
+			res.first = 3;
+			res.second = 13 - ((x - 20) / 20);
+		}
+		if (find(choise.begin(), choise.end(), 4) != choise.end()
+			&& res.second > (((x + 20) / 20) - 13)) {
+			res.first = 4;
+			res.second = ((x + 20) / 20) - 13;
+		}
+//		cout << "vect = " << res.first << " steps = " << res.second << "\n";
+		_vect = res.first;
+		if (_vect == 1) {
+			_rect.y -= _speed;
+		}
+		else if (_vect == 2) {
+			_rect.y += _speed;
+		}
+		else if (_vect == 3) {
+			_rect.x -= _speed;
+		}
+		else if (_vect == 4) {
+			_rect.x += _speed;
+		}
+		vect = _vect;
+		old_y_x[0] = y;
+		old_y_x[1] = x;
+		SDL_Point tmp_ptr;
+		tmp_ptr.x = 260 + 140;
+		tmp_ptr.y = 260 + 20;
+		if (SDL_PointInRect(&tmp_ptr, &_rect)) {
+			cout << "change\n";
+			_run = false;
+			changeimg(false);
+		}
+		else
+			changeimg(false, true);
+	}
 }
 
