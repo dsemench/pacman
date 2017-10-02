@@ -13,7 +13,7 @@ private:
 	bool _hunter;
 	int _num_en;
 //	int count_steps;
-	int old_y_x[4];
+	int old_y_x[2];
 	int vect;
 	int old_vect;
 	int _vect, _speed;

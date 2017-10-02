@@ -8,7 +8,7 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	string address_img;//("./images/enemy/");
 
 	_num_en = i;
-	old_y_x[0] = old_y_x[1] = old_y_x[2] = old_y_x[3] = 0;
+	old_y_x[0] = old_y_x[1] = 0;
 	old_vect = 0;
 	_vect = 4;
 	vect = 4;
@@ -54,7 +54,6 @@ void Enemy::action(int *map) {
 	if (_hunter)
 		_texture = _arr_texture[vect - 1];
 	if (vect != 0 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {//make virtual for two classes
-		cout << "if\n";
  		if (vect == 1) {
 			_rect.y -= _speed;
 		}
@@ -67,57 +66,26 @@ void Enemy::action(int *map) {
 		else if (vect == 4) {
 			_rect.x += _speed;
 		}
-		old_y_x[2] = y;
-		old_y_x[3] = x;
 		if (_rect.y % 20 == 0 && _rect.x % 20 == 0)
-		check = true;
-	//		cout << "y = " << _rect.y << " x = " << _rect.x << "\n";
+			check = true;
 	}
 	else {
-		cout << "else\n";
-//		check = true;
 		_vect = makeChoice(y, x, map);
-		if (_vect == 1 && !getRoad((y - 20) / 20, x / 20, map)) {
-			if ((y - 20) >= 0) {
-				cout << "1\n";
-				_rect.y -= _speed;
-				vect = _vect;
-				old_y_x[0] = y;
-//				old_y_x[0] = y - 20;
-				old_y_x[1] = x;
-			}
+		if (_vect == 1 && !getRoad((y - 20) / 20, x / 20, map) && (y - 20) >= 0) {
+			_rect.y -= _speed;
 		}
-		else if (_vect == 2 && !getRoad((y + 20) / 20, x / 20, map)) {
-			if ((y + 20) <= 580) {
-				cout << "2\n";
-				_rect.y += _speed;
-				vect = _vect;
-				old_y_x[0] = y;
-//				old_y_x[0] = y + 20;
-				old_y_x[1] = x;
-			}
+		else if (_vect == 2 && !getRoad((y + 20) / 20, x / 20, map) && (y + 20) <= 580) {
+			_rect.y += _speed;
 		}
-		else if (_vect == 3 && !getRoad(y / 20, (x - 20) / 20, map)) {
-			if ((x - 20) >= 0) {
-				cout << "3\n";
-				_rect.x -= _speed;
-				vect = _vect;
-				old_y_x[0] = y;
-				old_y_x[1] = x;
-//				old_y_x[1] = x - 20;
-			}
+		else if (_vect == 3 && !getRoad(y / 20, (x - 20) / 20, map) && (x - 20) >= 0) {
+			_rect.x -= _speed;
 		}
-		else if (_vect == 4 && !getRoad(y / 20, (x + 20) / 20, map)) {
-			cout << "4.0\n";
-			if ((x + 20) <= 500) {
-				cout << "4\n";
-				_rect.x += _speed;
-				vect = _vect;
-				old_y_x[0] = y;
-				old_y_x[1] = x;
-//				old_y_x[1] = x + 20;
-			}
+		else if (_vect == 4 && !getRoad(y / 20, (x + 20) / 20, map) && (x + 20) <= 500) {
+			_rect.x += _speed;
 		}
+		vect = _vect;
+		old_y_x[0] = y;
+		old_y_x[1] = x;
 	}
 	if (check)
 		_vect = makeChoice(y, x, map);
@@ -142,25 +110,25 @@ int Enemy::makeChoice(int y, int x, int *map) {
 	int res = 0;
 
 	if (!getRoad((y - 20) / 20, x / 20, map) && _vect != 2
-		&& ((y - 20) != old_y_x[0]) && ((y - 20) != old_y_x[2])) {
+		&& ((y - 20) != old_y_x[0])) {
 		choise.push_back(1);
 	}
 	if (!getRoad((y + 20) / 20, x / 20, map) && _vect != 1
-		&& ((y + 20) != old_y_x[0]) && ((y + 20) != old_y_x[2])) {
+		&& ((y + 20) != old_y_x[0])) {
 		choise.push_back(2);
 	}
 	if (!getRoad(y / 20, (x - 20) / 20, map) && _vect != 4
-		&& ((x - 20) != old_y_x[1]) && ((x - 20) != old_y_x[3])) {
+		&& ((x - 20) != old_y_x[1])) {
 		choise.push_back(3);
 	}
 	if (!getRoad(y / 20, (x + 20) / 20, map) && _vect != 3
-		&& ((x + 20) != old_y_x[1]) && ((x - 20) != old_y_x[3])) {
+		&& ((x + 20) != old_y_x[1])) {
 		choise.push_back(4);
 	}
-	for (size_t i = 0; i < choise.size() && !res; i++) {
-		cout << choise[i] << " ";
-	}
-	cout << "\n";
+//	for (size_t i = 0; i < choise.size() && !res; i++) {
+//		cout << choise[i] << " ";
+//	}
+//	cout << "\n";
 	if (choise.size() > 1) {
 		while (!res) {
 			int tmp;
@@ -169,7 +137,6 @@ int Enemy::makeChoice(int y, int x, int *map) {
 				if (tmp == choise[i] && tmp != _vect)
 					res = tmp;
 			}
-//		}
 		}
 	}
 	else
