@@ -59,7 +59,6 @@ int	main() {
 	bool exit = false;
 //	bool pause = false;
 	bool delay = false;
-	int can_eat_en = 0;
 	SDL_Event event;
 	SDL_Renderer *renderer = nullptr;
 	General_win *gen_win = new General_win();
@@ -93,9 +92,9 @@ int	main() {
 			SDL_Rect tmp_rect1 = Pac->getRect();
 			if (SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
 				if (ball[i]->getBallsize()) {
-					can_eat_en += 5000;
-					can_eat_en += 5000;
-					can_eat_en += 5000;
+					for (size_t i = 0; i < en.size(); i++) {
+						en[i]->get_set_eat() += 15000;
+					}
 				}
 				ball.erase(ball.begin() + i);
 				i--;
@@ -114,28 +113,25 @@ int	main() {
 		for (size_t i = 0; i < en.size(); i++) {
 			SDL_Point tmp_ptr = take_SDL_point(Pac->getRect());
 			tmp_rect = en[i]->getRect();
-			if (can_eat_en) {
-				en[i]->changeimg(false);
-				can_eat_en--;
+			if (en[i]->get_set_eat()) {
+				en[i]->get_set_eat()--;
 			}
-			else
-				en[i]->changeimg(true);
 			if (!en[i]->getRun() && !SDL_PointInRect(&tmp_ptr, &tmp_rect)) {
-				if (delay)
+				if (delay) {
 					en[i]->action(Mp->getMap());
+					en[i]->get_set_eat() ? en[i]->changeimg(false) : en[i]->changeimg(true);
+				}
 			}
 			else {
-//				cout << "eat-eat i = " << i << "\n";
 				if (en[i]->getRun()) {
-					//enemy run home
 					en[i]->runhome(Mp->getMap());
 				}
 				else {
 					if (en[i]->getHunt()) {
+						cout << "pacman dead!\n";
 						//problem for pacman
 					}
 					else {
-//						en[i]->changeimg(false, true);
 						en[i]->setRun(true);
 						en[i]->runhome(Mp->getMap());
 					}

@@ -10,11 +10,12 @@
 
 class Enemy : public General_win {
 private:
-	bool _hunter;
+	bool _hunt;
 	bool _run;
 	int old_y_x[2];
 	int vect;
 	int _vect, _speed;
+	int _can_eat_em;
 	SDL_Texture *_arr_texture[9];
 
 public:
@@ -27,8 +28,9 @@ public:
 	void setVect(int i) { _vect = i; };
 	int makeChoice(int y, int x, int *map);
 
-	bool getHunt() { return _hunter; };
-	void setHunt(bool condition) { _run = condition; };
+	int &get_set_eat() { return _can_eat_em; };
+	bool getHunt() { return _hunt; };
+	void setHunt(bool condition) { _hunt = condition; };
 	bool getRun() { return _run; };
 	void setRun(bool condition) { _run = condition; };
 

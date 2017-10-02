@@ -10,6 +10,7 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	old_y_x[0] = old_y_x[1] = 0;
 	_vect = 4;
 	vect = 4;
+	_can_eat_em = 0;
 	_run = false;
 	_speed = 1;
 	_rect.h = 20;
@@ -50,7 +51,7 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[4] = _texture;
 	_texture = _arr_texture[1];
-	_hunter = true;
+	_hunt = true;
 
 }
 
@@ -67,7 +68,7 @@ void Enemy::action(int *map) {
 	int x = _rect.x - 140, y = _rect.y - 20;
 	bool check = false;
 
-	if (_hunter)
+	if (_hunt)
 		_texture = _arr_texture[vect - 1];
 	if (vect != 0 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {//make virtual for two classes
 		finish_mov_pos();
@@ -120,7 +121,7 @@ bool Enemy::finish_mov_pos() {
 
 void Enemy::changeimg(bool condition, bool run) {
 	if (!run) {
-		if (_hunter == condition)
+		if (_hunt == condition)
 			return;
 		if (!condition)
 			_texture = _arr_texture[4];
@@ -129,7 +130,7 @@ void Enemy::changeimg(bool condition, bool run) {
 				_texture = _arr_texture[1];
 			}
 		}
-		_hunter = condition;
+		_hunt = condition;
 	}
 	else
 		_texture = _arr_texture[_vect + 4];
@@ -221,7 +222,6 @@ void Enemy::runhome(int *map) {
 			res.first = 4;
 			res.second = ((x + 20) / 20) - 13;
 		}
-//		cout << "vect = " << res.first << " steps = " << res.second << "\n";
 		_vect = res.first;
 		if (_vect == 1) {
 			_rect.y -= _speed;
@@ -244,7 +244,7 @@ void Enemy::runhome(int *map) {
 		if (SDL_PointInRect(&tmp_ptr, &_rect)) {
 			cout << "change\n";
 			_run = false;
-			changeimg(false);
+			_can_eat_em = 0;
 		}
 		else
 			changeimg(false, true);
