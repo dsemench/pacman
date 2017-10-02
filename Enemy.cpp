@@ -140,22 +140,7 @@ int Enemy::makeChoice(int y, int x, int *map) {
 	vector<int> choise;
 	int res = 0;
 
-	if (_vect != 2 && !getRoad((y - 20) / 20, x / 20, map)
-		&& ((y - 20) != old_y_x[0])) {
-		choise.push_back(1);
-	}
-	if (_vect != 1 && !getRoad((y + 20) / 20, x / 20, map)
-		&& ((y + 20) != old_y_x[0])) {
-		choise.push_back(2);
-	}
-	if (_vect != 4 && !getRoad(y / 20, (x - 20) / 20, map)
-		&& ((x - 20) != old_y_x[1])) {
-		choise.push_back(3);
-	}
-	if (_vect != 3 && !getRoad(y / 20, (x + 20) / 20, map)
-		&& ((x + 20) != old_y_x[1])) {
-		choise.push_back(4);
-	}
+	choise = createVecChoise(y, x, map);
 //	for (size_t i = 0; i < choise.size() && !res; i++) {
 //		cout << choise[i] << " ";
 //	}
@@ -181,23 +166,7 @@ void Enemy::runhome(int *map) {
 
 	if (finish_mov_pos()) {
 		pair<int, int> res(100, 100);
-
-		if (!getRoad((y - 20) / 20, x / 20, map)
-			&& ((y - 20) != old_y_x[0])) {
-			choise.push_back(1);
-		}
-		if (!getRoad((y + 20) / 20, x / 20, map)
-			&& ((y + 20) != old_y_x[0])) {
-			choise.push_back(2);
-		}
-		if (!getRoad(y / 20, (x - 20) / 20, map)
-			&& ((x - 20) != old_y_x[1])) {
-			choise.push_back(3);
-		}
-		if (!getRoad(y / 20, (x + 20) / 20, map)
-			&& ((x + 20) != old_y_x[1])) {
-			choise.push_back(4);
-		}
+		choise = createVecChoise(y, x, map);
 //	for (size_t i = 0; i < choise.size(); i++) {
 //		cout << choise[i] << " ";
 //	}
@@ -249,5 +218,27 @@ void Enemy::runhome(int *map) {
 		else
 			changeimg(false, true);
 	}
+}
+
+vector<int> Enemy::createVecChoise(int y, int x, int *map) {
+	vector<int> res;
+
+	if (_vect != 2 && !getRoad((y - 20) / 20, x / 20, map)
+		&& ((y - 20) != old_y_x[0])) {
+		res.push_back(1);
+	}
+	if (_vect != 1 && !getRoad((y + 20) / 20, x / 20, map)
+		&& ((y + 20) != old_y_x[0])) {
+		res.push_back(2);
+	}
+	if (_vect != 4 && !getRoad(y / 20, (x - 20) / 20, map)
+		&& ((x - 20) != old_y_x[1])) {
+		res.push_back(3);
+	}
+	if (_vect != 3 && !getRoad(y / 20, (x + 20) / 20, map)
+		&& ((x + 20) != old_y_x[1])) {
+		res.push_back(4);
+	}
+	return res;
 }
 

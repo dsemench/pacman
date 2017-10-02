@@ -35,6 +35,7 @@ public:
 	void setRun(bool condition) { _run = condition; };
 
 	void runhome(int *map);// when enemy
+	vector<int> createVecChoise(int y, int x, int *map);
 };
 
 

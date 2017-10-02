@@ -76,20 +76,21 @@ void Pacman::travel(int *map){
 	if (vect != 0 && _rect.x != 390 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {
 		if (vect == 1) {
 			_rect.y -= min;
-			changePic(vect);
+//			changePic(vect);//?
 		}
 		else if (vect == 2) {
 			_rect.y += min;
-			changePic(vect);
+//			changePic(vect);//?
 		}
 		else if (vect == 3) {
 			_rect.x -= min;
-			changePic(vect);
+//			changePic(vect);//?
 		}
 		else if (vect == 4) {
 			_rect.x += min;
-			changePic(vect);
+//			changePic(vect);//?
 		}
+			changePic(vect);
 	}
 	else {
 		if (_vect == 1 && !getRoad((y - 20) / 20, x / 20, map)) {
