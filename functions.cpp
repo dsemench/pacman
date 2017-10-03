@@ -25,7 +25,8 @@ bool getRoad(int y, int x, int *map) {
 		return false;
 }
 
-void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, vector<Balls*> &life, int *map) {
+void initBall(SDL_Renderer *renderer, vector<Balls*> &ball,
+			vector<Balls*> &life, vector<Enemy*> &en, int *map) {
 
 	for (int y = 0; y < 29; y++) {
 		for (int x = 0; x < 26; x++) {
@@ -45,9 +46,12 @@ void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, vector<Balls*> &life
 		}
 	}
 	for (int i = 0; i < 3; ++i) {
-		Balls *tmp = nullptr;
-		tmp = new Balls(2, renderer, 0, i);
+		Balls *tmp = new Balls(2, renderer, 0, i);
 		life.push_back(tmp);
+	}
+	for (int i = 0; i < 4; ++i) {
+		Enemy *tmp_en = new Enemy(i + 1, renderer);
+		en.push_back(tmp_en);
 	}
 }
 

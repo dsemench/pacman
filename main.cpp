@@ -8,35 +8,25 @@
 #include "Pacman.hpp"
 #include "Enemy.hpp"
 
-int	main() {
 
-	bool exit = false;
-	bool pause = true;
-	bool delay = false;
-	bool delay1 = false;
-	bool try_again = false;
+int	main() {
+	bool exit, pause, delay, delay1, try_again;
+	exit = delay = delay1 = try_again = false;
+	pause = true;
 	SDL_Event event;
 	SDL_Renderer *renderer = nullptr;
 	General_win gen_win = General_win();
 	SDL_Rect tmp_rect;
-	vector<Balls*> ball;
+	vector<Balls*> ball, life;
 	vector<Enemy*> en;
-	vector<Balls*> life;
-
 
 	gen_win.drawWindow(&renderer);
 	gen_win.setSurfaceDraw("./images/back-ground.jpeg", renderer);
 
-
 	Map Mp = Map(renderer);
 	Pacman Pac = Pacman(renderer);
 	srand(time(0));
-	for (int i = 0; i < 4; ++i) {
-		Enemy *tmp_en = new Enemy(i + 1, renderer);
-		en.push_back(tmp_en);
-	}
-
-	initBall(renderer, ball, life, Mp.getMap());
+	initBall(renderer, ball, life, en, Mp.getMap());
 	while (!exit) {
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, gen_win.getTexture(), nullptr, nullptr);

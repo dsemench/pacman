@@ -10,13 +10,12 @@
 
 class Pacman : public General_win {
 private:
-	int _vect;//, _life;
+	int _vect;
 	SDL_Texture *_arr_texture[8];
 public:
 	Pacman(SDL_Renderer *renderer);
 
 	void setvect(int i) { _vect = _vect = i; };
-//	int &change_life() { return _life; };
 
 	void action(SDL_Event event);
 	void travel(int *map);
