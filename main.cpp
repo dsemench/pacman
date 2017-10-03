@@ -118,8 +118,13 @@ int	main() {
 			}
 			if (!en[i]->getRun() && !SDL_PointInRect(&tmp_ptr, &tmp_rect)) {
 				if (delay) {
-					en[i]->action(Mp->getMap());
-					en[i]->get_set_eat() ? en[i]->changeimg(false) : en[i]->changeimg(true);
+					if (en[i]->getHome()) {
+						en[i]->go_out_home(Mp->getMap());
+					}
+					else {
+						en[i]->action(Mp->getMap());
+						en[i]->get_set_eat() ? en[i]->changeimg(false) : en[i]->changeimg(true);
+					}
 				}
 			}
 			else {

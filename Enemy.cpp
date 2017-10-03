@@ -12,12 +12,13 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	vect = 4;
 	_can_eat_em = 0;
 	_run = false;
+	_home = true;
 	_speed = 1;
 	_rect.h = 20;
 	_rect.w = 20;
 	_rect.x = 140 + (9 * 20) + (20 * i);
-//	_rect.y = 20 + (12 * 20);
-	_rect.y = 20 + (16 * 20);
+	_rect.y = 20 + (12 * 20);
+//	_rect.y = 20 + (16 * 20);
 	address_img = "./images/enemy/" + to_string(i) + to_string(1) + ".png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[3] = _texture;
@@ -160,51 +161,60 @@ int Enemy::makeChoice(int y, int x, int *map) {
 	return res;
 }
 
+void Enemy::go_to_pos(vector<int> choise, int pos_y, int pos_x, int y, int x) {
+	pair<int, int> res(100, 100);
+
+	if (find(choise.begin(), choise.end(), 1) != choise.end()
+		&& res.second > (pos_y - ((y - 20) / 20))) {
+		res.first = 1;
+		res.second = pos_y - ((y - 20) / 20);
+	}
+	if (find(choise.begin(), choise.end(), 2) != choise.end()
+		&& res.second > (((y + 20) / 20) - pos_y)) {
+		res.first = 2;
+		res.second = ((y + 20) / 20) - pos_y;
+	}
+	if (find(choise.begin(), choise.end(), 3) != choise.end()
+		&& res.second > (pos_x - ((x - 20) / 20))) {
+		res.first = 3;
+		res.second = pos_x - ((x - 20) / 20);
+	}
+	if (find(choise.begin(), choise.end(), 4) != choise.end()
+		&& res.second > (((x + 20) / 20) - pos_x)) {
+		res.first = 4;
+		res.second = ((x + 20) / 20) - pos_x;
+	}
+	_vect = res.first;
+}
+
+void Enemy::makeFirst_step() {
+	if (_vect == 1) {
+		_rect.y -= _speed;
+	}
+	else if (_vect == 2) {
+		_rect.y += _speed;
+	}
+	else if (_vect == 3) {
+		_rect.x -= _speed;
+	}
+	else if (_vect == 4) {
+		_rect.x += _speed;
+	}
+	vect = _vect;
+}
+
 void Enemy::runhome(int *map) {
 	vector<int> choise;
 	int x = _rect.x - 140, y = _rect.y - 20;//current position
 
 	if (finish_mov_pos()) {
-		pair<int, int> res(100, 100);
 		choise = createVecChoise(y, x, map);
 //	for (size_t i = 0; i < choise.size(); i++) {
 //		cout << choise[i] << " ";
 //	}
 //	cout << "\n";
-		if (find(choise.begin(), choise.end(), 1) != choise.end()
-			&& res.second > (13 - ((y - 20) / 20))) {
-			res.first = 1;
-			res.second = 13 - ((y - 20) / 20);
-		}
-		if (find(choise.begin(), choise.end(), 2) != choise.end()
-			&& res.second > (((y + 20) / 20) - 13)) {
-			res.first = 2;
-			res.second = ((y + 20) / 20) - 13;
-		}
-		if (find(choise.begin(), choise.end(), 3) != choise.end()
-			&& res.second > (13 - ((x - 20) / 20))) {
-			res.first = 3;
-			res.second = 13 - ((x - 20) / 20);
-		}
-		if (find(choise.begin(), choise.end(), 4) != choise.end()
-			&& res.second > (((x + 20) / 20) - 13)) {
-			res.first = 4;
-			res.second = ((x + 20) / 20) - 13;
-		}
-		_vect = res.first;
-		if (_vect == 1) {
-			_rect.y -= _speed;
-		}
-		else if (_vect == 2) {
-			_rect.y += _speed;
-		}
-		else if (_vect == 3) {
-			_rect.x -= _speed;
-		}
-		else if (_vect == 4) {
-			_rect.x += _speed;
-		}
-		vect = _vect;
+		go_to_pos(choise, 13, 13, y, x);
+		makeFirst_step();
 		old_y_x[0] = y;
 		old_y_x[1] = x;
 		SDL_Point tmp_ptr;
@@ -213,10 +223,28 @@ void Enemy::runhome(int *map) {
 		if (SDL_PointInRect(&tmp_ptr, &_rect)) {
 			cout << "change\n";
 			_run = false;
+			_home = true;
 			_can_eat_em = 0;
 		}
 		else
 			changeimg(false, true);
+	}
+}
+
+void Enemy::go_out_home(int *map) {
+	int x = _rect.x - 140, y = _rect.y - 20;//current position
+
+	if (finish_mov_pos()) {
+		go_to_pos(createVecChoise(y, x, map), 9, 12, y, x);
+		makeFirst_step();
+		old_y_x[0] = y;
+		old_y_x[1] = x;
+		SDL_Point tmp_ptr;
+		tmp_ptr.x = 220 + 140;
+		tmp_ptr.y = 200 + 20;
+		if (SDL_PointInRect(&tmp_ptr, &_rect)) {
+			_home = false;
+		}
 	}
 }
 
