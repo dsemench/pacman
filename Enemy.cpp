@@ -5,11 +5,10 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy(int i, SDL_Renderer *renderer) {
-	string address_img;//("./images/enemy/");
+	string address_img;
 
 	old_y_x[0] = old_y_x[1] = 0;
-	_vect = 4;
-	vect = 4;
+	_vect = vect = 4;
 	_can_eat_em = 0;
 	_run = false;
 	_home = true;

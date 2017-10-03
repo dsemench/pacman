@@ -39,6 +39,7 @@ public:
 	SDL_Window *getWindow() { return _window; };
 	SDL_Texture *getTexture() { return _texture; };
 	SDL_Rect getRect() { return _rect; };
+	void setRect(SDL_Rect rect) { _rect = rect; };
 };
 
 

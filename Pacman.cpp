@@ -6,11 +6,11 @@
 
 Pacman::Pacman(SDL_Renderer *renderer) {
 	_vect = 0;
-	_life = 1;
+//	_life = 3;
 	_rect.h = 20;//hight
 	_rect.w = 20;//width
-	_rect.x = 140 + (12 * 20) + 10;//horizontal pos
 	_rect.y = 20 + (22 * 20);// vertical pos
+	_rect.x = 140 + (12 * 20) + 10;//horizontal pos
 	setSurfaceDraw("./images/pacman/puc.png", renderer);
 	_arr_texture[0] = _texture;
 	setSurfaceDraw("./images/pacman/puo.png", renderer);
@@ -145,18 +145,16 @@ void Pacman::travel(int *map){
 }
 
 void Pacman::action(SDL_Event event) {
-	if (event.type == SDL_KEYUP) {
-		if (event.key.keysym.sym == SDLK_UP) {
-			_vect = 1;
-		}
-		else if (event.key.keysym.sym == SDLK_DOWN) {
-			_vect = 2;
-		}
-		else if (event.key.keysym.sym == SDLK_LEFT) {
-			_vect = 3;
-		}
-		else if (event.key.keysym.sym == SDLK_RIGHT) {
-			_vect = 4;
-		}
+	if (event.key.keysym.sym == SDLK_UP) {
+		_vect = 1;
+	}
+	else if (event.key.keysym.sym == SDLK_DOWN) {
+		_vect = 2;
+	}
+	else if (event.key.keysym.sym == SDLK_LEFT) {
+		_vect = 3;
+	}
+	else if (event.key.keysym.sym == SDLK_RIGHT) {
+		_vect = 4;
 	}
 }
