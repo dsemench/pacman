@@ -16,11 +16,10 @@ Map::Map(SDL_Renderer *renderer) {
 	_map[8] = 66041823;
 	_map[9] = 66041823;
 	_map[10] = 65798367;
-//	_map[11] = 65928927;//open room 65916639 close 65928927
-	_map[11] = 65916639;//open room 65916639
-	_map[12] = 65864415;//enemy room
-	_map[13] = 65077791;//enemy room
-	_map[14] = 65864415;//enemy room
+	_map[11] = 65916639;//open room 65916639 close 65928927
+	_map[12] = 65864415;
+	_map[13] = 65077791;
+	_map[14] = 65864415;
 	_map[15] = 65928927;
 	_map[16] = 65798367;
 	_map[17] = 65928927;
@@ -42,7 +41,6 @@ Map::Map(SDL_Renderer *renderer) {
 	_rect.w = 560;//width
 	_rect.x = 120;//horizontal pos
 	_rect.y = 0;//vertical pos
-//	_renderer = renderer;
 };
 
 ////_rect.h = 580;//588;//hight

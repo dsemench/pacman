@@ -15,10 +15,6 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-//#include "General_win.hpp"
-//#include "Balls.hpp"
-//#include "Map.hpp"
-//#include "Pacman.hpp"
 
 
 

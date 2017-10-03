@@ -6,6 +6,7 @@
 
 Pacman::Pacman(SDL_Renderer *renderer) {
 	_vect = 0;
+	_life = 1;
 	_rect.h = 20;//hight
 	_rect.w = 20;//width
 	_rect.x = 140 + (12 * 20) + 10;//horizontal pos

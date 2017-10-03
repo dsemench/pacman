@@ -59,6 +59,7 @@ int	main() {
 	bool exit = false;
 //	bool pause = false;
 	bool delay = false;
+	bool delay1 = false;
 	SDL_Event event;
 	SDL_Renderer *renderer = nullptr;
 	General_win *gen_win = new General_win();
@@ -74,7 +75,7 @@ int	main() {
 	Map *Mp = new Map(renderer);
 	Pacman *Pac = new Pacman(renderer);
 	srand(time(0));
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 2; ++i) {
 		Enemy *tmp_en = new Enemy(i + 1, renderer);
 		en.push_back(tmp_en);
 	}
@@ -87,13 +88,14 @@ int	main() {
 		tmp_rect = Mp->getRect();
 		SDL_RenderCopy(renderer, Mp->getTexture(), nullptr, &tmp_rect);
 
+
 		for (size_t i = 0; i < ball.size(); i++){
 			tmp_rect = ball[i]->getRect();
 			SDL_Rect tmp_rect1 = Pac->getRect();
 			if (SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
 				if (ball[i]->getBallsize()) {
 					for (size_t i = 0; i < en.size(); i++) {
-						en[i]->get_set_eat() += 15000;
+						en[i]->get_set_eat() += 20000;
 					}
 				}
 				ball.erase(ball.begin() + i);
@@ -107,8 +109,9 @@ int	main() {
 			Pac->travel(Mp->getMap());
 			delay = false;
 		}
-		else
+				else
 			delay = true;
+		delay1 ? delay1 = false : delay1 = true;
 
 		for (size_t i = 0; i < en.size(); i++) {
 			SDL_Point tmp_ptr = take_SDL_point(Pac->getRect());
@@ -117,24 +120,43 @@ int	main() {
 				en[i]->get_set_eat()--;
 			}
 			if (!en[i]->getRun() && !SDL_PointInRect(&tmp_ptr, &tmp_rect)) {
+				if (Mp->door_status())
+					Mp->close_door();
 				if (delay) {
 					if (en[i]->getHome()) {
+						if (!Mp->door_status())
+							Mp->open_door();
 						en[i]->go_out_home(Mp->getMap());
+					}
+					else if (en[i]->get_set_eat()) {
+							if(delay1) {
+								cout << "enemy = " << i << "\n";
+								en[i]->action(Mp->getMap());
+							}
+							en[i]->changeimg(false);
 					}
 					else {
 						en[i]->action(Mp->getMap());
-						en[i]->get_set_eat() ? en[i]->changeimg(false) : en[i]->changeimg(true);
+						en[i]->changeimg(true);
 					}
 				}
 			}
 			else {
+				if (!Mp->door_status())
+					Mp->open_door();
 				if (en[i]->getRun()) {
 					en[i]->runhome(Mp->getMap());
 				}
 				else {
 					if (en[i]->getHunt()) {
-						cout << "pacman dead!\n";
-						//problem for pacman
+//						if (Pac->change_life()) {
+							cout << "pacman dead!\n";
+//							Pac->change_life()--;
+//						}
+//						else {
+//							problem for pacman
+//							exit = true;
+//						}
 					}
 					else {
 						en[i]->setRun(true);
@@ -159,12 +181,6 @@ int	main() {
 			else
 				Pac->action(event);
 		}
-/*
-		for (int j = 0; j < 10000; ++j);
-		for (int j = 0; j < 10000; ++j);
-		for (int j = 0; j < 10000; ++j);
-		for (int j = 0; j < 10000; ++j);
-*/
 	}
 	return 0;
 }

@@ -31,20 +31,16 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	address_img = "./images/enemy/" + to_string(i) + to_string(4) + ".png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[0] = _texture;
-//	address_img = "./images/enemy/" + to_string(b) + to_string(1) + ".png";
-	address_img = "./images/balls_cherry/b1.png";
+	address_img = "./images/enemy/G1.png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[5] = _texture;
-//	address_img = "./images/enemy/" + to_string(i) + to_string(2) + ".png";
-	address_img = "./images/balls_cherry/b1.png";
+	address_img = "./images/enemy/G3.png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[6] = _texture;
-//	address_img = "./images/enemy/" + to_string(i) + to_string(3) + ".png";
-	address_img = "./images/balls_cherry/b1.png";
+	address_img = "./images/enemy/G2.png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[7] = _texture;
-//	address_img = "./images/enemy/" + to_string(i) + to_string(4) + ".png";
-	address_img = "./images/balls_cherry/b1.png";
+	address_img = "./images/enemy/G4.png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[8] = _texture;
 
@@ -209,10 +205,6 @@ void Enemy::runhome(int *map) {
 
 	if (finish_mov_pos()) {
 		choise = createVecChoise(y, x, map);
-//	for (size_t i = 0; i < choise.size(); i++) {
-//		cout << choise[i] << " ";
-//	}
-//	cout << "\n";
 		go_to_pos(choise, 13, 13, y, x);
 		makeFirst_step();
 		old_y_x[0] = y;
@@ -221,7 +213,6 @@ void Enemy::runhome(int *map) {
 		tmp_ptr.x = 260 + 140;
 		tmp_ptr.y = 260 + 20;
 		if (SDL_PointInRect(&tmp_ptr, &_rect)) {
-			cout << "change\n";
 			_run = false;
 			_home = true;
 			_can_eat_em = 0;
