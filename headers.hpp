@@ -21,9 +21,13 @@
 using namespace std;
 
 class Balls;
+class Enemy;
+class Pacman;
 
 bool getRoad(int y, int x, int *map);
-void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, int *map);
-SDL_Point getSDL_point(SDL_Rect rect);
+void initBall(SDL_Renderer *renderer, vector<Balls*> &ball, vector<Balls*> &life, int *map);
+//SDL_Point getSDL_point(SDL_Rect rect);
+SDL_Point take_SDL_point(SDL_Rect rect);
+bool to_start_pos(vector<Enemy*> &en, Pacman &Pac);
 
 #endif //PACMAN_HEADERS_HPP

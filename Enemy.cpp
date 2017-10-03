@@ -215,6 +215,7 @@ void Enemy::runhome(int *map) {
 			_run = false;
 			_home = true;
 			_can_eat_em = 0;
+			changeimg(true);
 		}
 		else
 			changeimg(false, true);
