@@ -17,74 +17,30 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	_rect.w = 20;
 	_rect.x = 140 + (9 * 20) + (20 * i);
 	_rect.y = 20 + (12 * 20);
-//	_rect.y = 20 + (16 * 20);
-/*
-	address_img = "./images/enemy/" + to_string(i) + to_string(1) + ".png";
-//	setSurfaceDraw(address_img.c_str(), renderer);
-//	_arr_texture[3] = _texture;
-	_arr_texture[3] = SetSurfaceDraw(address_img.c_str(), renderer);
-
-
-	address_img = "./images/enemy/" + to_string(i) + to_string(2) + ".png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[1] = _texture;
-	address_img = "./images/enemy/" + to_string(i) + to_string(3) + ".png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[2] = _texture;
-	address_img = "./images/enemy/" + to_string(i) + to_string(4) + ".png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[0] = _texture;
-	address_img = "./images/enemy/G1.png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[5] = _texture;
-	address_img = "./images/enemy/G3.png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[6] = _texture;
-	address_img = "./images/enemy/G2.png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[7] = _texture;
-	address_img = "./images/enemy/G4.png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[8] = _texture;
-
-	address_img = "./images/enemy/" + to_string(61) + ".png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[4] = _texture;
-*/
 
 	address_img = "./images/enemy/" + to_string(i) + to_string(1) + ".png";
 	_arr_texture[3] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/" + to_string(i) + to_string(2) + ".png";
 	_arr_texture[1] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/" + to_string(i) + to_string(3) + ".png";
 	_arr_texture[2] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/" + to_string(i) + to_string(4) + ".png";
 	_arr_texture[0] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/G1.png";
 	_arr_texture[5] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/G3.png";
 	_arr_texture[6] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/G2.png";
 	_arr_texture[7] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/G4.png";
 	_arr_texture[8] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	address_img = "./images/enemy/" + to_string(61) + ".png";
 	_arr_texture[4] = SetSurfaceDraw(address_img.c_str(), renderer);
-
 	_texture = _arr_texture[1];
 	_hunt = true;
-
 }
 
-int Enemy::makeRand(int r) {
+int			Enemy::makeRand(int r) {
 	int res;
 
 	res = rand() % r + 1;
@@ -93,7 +49,7 @@ int Enemy::makeRand(int r) {
 }
 
 
-void Enemy::action(int *map) {
+void		Enemy::action(int *map) {
 	int x = _rect.x - 140, y = _rect.y - 20;
 	bool check = false;
 
@@ -126,7 +82,7 @@ void Enemy::action(int *map) {
 		_vect = makeChoice(y, x, map);
 }
 
-bool Enemy::finish_mov_pos() {
+bool		Enemy::finish_mov_pos() {
 	if (_rect.y % 20 != 0 || _rect.x % 20 != 0) {
 		if (vect == 1) {
 			_rect.y -= _speed;
@@ -148,7 +104,7 @@ bool Enemy::finish_mov_pos() {
 	return true;
 }
 
-void Enemy::changeimg(bool condition, bool run) {
+void		Enemy::changeimg(bool condition, bool run) {
 	if (!run) {
 		if (_hunt == condition)
 			return;
@@ -165,7 +121,7 @@ void Enemy::changeimg(bool condition, bool run) {
 		_texture = _arr_texture[_vect + 4];
 }
 
-int Enemy::makeChoice(int y, int x, int *map) {
+int			Enemy::makeChoice(int y, int x, int *map) {
 	vector<int> choise;
 	int res = 0;
 
@@ -189,7 +145,8 @@ int Enemy::makeChoice(int y, int x, int *map) {
 	return res;
 }
 
-void Enemy::go_to_pos(vector<int> choise, int pos_y, int pos_x, int y, int x) {
+void		Enemy::go_to_pos(vector<int> choise,
+						int pos_y, int pos_x, int y, int x) {
 	pair<int, int> res(100, 100);
 
 	if (find(choise.begin(), choise.end(), 1) != choise.end()
@@ -215,7 +172,7 @@ void Enemy::go_to_pos(vector<int> choise, int pos_y, int pos_x, int y, int x) {
 	_vect = res.first;
 }
 
-void Enemy::makeFirst_step() {
+void		Enemy::makeFirst_step() {
 	if (_vect == 1) {
 		_rect.y -= _speed;
 	}
@@ -231,7 +188,7 @@ void Enemy::makeFirst_step() {
 	vect = _vect;
 }
 
-void Enemy::runhome(int *map) {
+void		Enemy::runhome(int *map) {
 	vector<int> choise;
 	int x = _rect.x - 140, y = _rect.y - 20;//current position
 
@@ -255,7 +212,7 @@ void Enemy::runhome(int *map) {
 	}
 }
 
-void Enemy::go_out_home(int *map) {
+void		Enemy::go_out_home(int *map) {
 	int x = _rect.x - 140, y = _rect.y - 20;//current position
 
 	if (finish_mov_pos()) {
@@ -272,7 +229,7 @@ void Enemy::go_out_home(int *map) {
 	}
 }
 
-vector<int> Enemy::createVecChoise(int y, int x, int *map) {
+vector<int>	Enemy::createVecChoise(int y, int x, int *map) {
 	vector<int> res;
 
 	if (_vect != 2 && !getRoad((y - 20) / 20, x / 20, map)

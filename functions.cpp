@@ -8,9 +8,7 @@
 #include "Pacman.hpp"
 
 
-
-
-bool getRoad(int y, int x, int *map) {
+bool		getRoad(int y, int x, int *map) {
 
 //	if (y < 12 || y > 17 || x < 11 || x > 16) {
 //		cout << "pos x = " << x << "\n";
@@ -25,8 +23,8 @@ bool getRoad(int y, int x, int *map) {
 		return false;
 }
 
-void initBall(SDL_Renderer *renderer, vector<Balls*> &ball,
-			vector<Balls*> &life, vector<Enemy*> &en, int *map) {
+void		initBall(SDL_Renderer *renderer, vector<Balls*> &ball,
+				vector<Balls*> &life, vector<Enemy*> &en, int *map) {
 
 	for (int y = 0; y < 29; y++) {
 		for (int x = 0; x < 26; x++) {
@@ -55,14 +53,14 @@ void initBall(SDL_Renderer *renderer, vector<Balls*> &ball,
 	}
 }
 
-SDL_Point take_SDL_point(SDL_Rect rect) {
+SDL_Point	take_SDL_point(SDL_Rect rect) {
 	SDL_Point res;
 	res.x = rect.x;
 	res.y = rect.y;
 	return res;
 }
 
-bool to_start_pos(vector<Enemy*> &en, Pacman &Pac) {
+bool		to_start_pos(vector<Enemy*> &en, Pacman &Pac) {
 	SDL_Rect tmp_rect;
 
 	for (size_t i = 0; i < en.size(); i++) {
@@ -83,7 +81,7 @@ bool to_start_pos(vector<Enemy*> &en, Pacman &Pac) {
 	return false;
 }
 
-void error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window) {
+void		error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window) {
 	switch (i) {
 		case 1:
 			cout << "SDL_Init Error: "
@@ -115,7 +113,7 @@ void error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window) {
 	exit(1);
 }
 
-void DrawWindow(SDL_Renderer **renderer, SDL_Window *window) {
+void		DrawWindow(SDL_Renderer **renderer, SDL_Window *window) {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		throw 1;
@@ -131,7 +129,7 @@ void DrawWindow(SDL_Renderer **renderer, SDL_Window *window) {
 	}
 }
 
-SDL_Texture *SetSurfaceDraw(const char *image, SDL_Renderer *renderer) {
+SDL_Texture	*SetSurfaceDraw(const char *image, SDL_Renderer *renderer) {
 	SDL_Surface		*picture;
 	SDL_Texture		*tmp_texture = nullptr;
 
@@ -147,10 +145,23 @@ SDL_Texture *SetSurfaceDraw(const char *image, SDL_Renderer *renderer) {
 	return tmp_texture;
 }
 
-void Destroy_Win(SDL_Renderer *renderer,
+void		Destroy_Win(SDL_Renderer *renderer,
 				 SDL_Window *window, SDL_Texture *texture) {
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+}
+
+bool 		you_win(SDL_Renderer *renderer) {
+	SDL_Rect tmp_rect;
+
+	tmp_rect.h = 620;
+	tmp_rect.w = 560;
+	tmp_rect.y = 0;
+	tmp_rect.x = 120;
+
+	SDL_RenderCopy(renderer, SetSurfaceDraw("./images/YouWin.png", renderer), nullptr, &tmp_rect);
+	SDL_RenderPresent(renderer);
+	return true;
 }

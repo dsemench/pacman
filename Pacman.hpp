@@ -5,16 +5,12 @@
 #ifndef PACMAN_PACMAN_HPP
 #define PACMAN_PACMAN_HPP
 
-//#include "General_win.hpp"
 #include "Hight_cl.hpp"
 
-//#include "headers.hpp"
-
-//class Pacman : public General_win {
 class Pacman : public Hight_cl {
 private:
-	int _vect;
-	SDL_Texture *_arr_texture[8];
+	int			_vect;
+	SDL_Texture	*_arr_texture[8];
 public:
 	Pacman(SDL_Renderer *renderer);
 
@@ -26,4 +22,4 @@ public:
 };
 
 
-#endif //PACMAN_PACMAN_HPP
+#endif

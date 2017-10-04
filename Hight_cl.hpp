@@ -11,11 +11,10 @@ class Hight_cl {
 protected:
 	SDL_Rect		_rect;
 	SDL_Texture		*_texture;
-	SDL_Renderer	*_renderer;
 public:
-	SDL_Rect	getRect() { return _rect; };
-	void		setRect(SDL_Rect rect) { _rect = rect; };
-	SDL_Texture	*getTexture() { return _texture; };
+	SDL_Rect		getRect() { return _rect; };
+	void			setRect(SDL_Rect rect) { _rect = rect; };
+	SDL_Texture		*getTexture() { return _texture; };
 };
 
 

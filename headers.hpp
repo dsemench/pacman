@@ -7,7 +7,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2_image/SDL_image.h"
-//#include "SDL2/SDL_ttf.h"
+//#include "SDL2_ttf/SDL_ttf.h"
 
 #include <iostream>
 #include <cstddef>
@@ -37,4 +37,7 @@ void		Destroy_Win(SDL_Renderer *renderer,
 				 SDL_Window *window, SDL_Texture *texture);
 
 void		error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window);
-#endif //PACMAN_HEADERS_HPP
+
+bool 		you_win(SDL_Renderer *renderer);
+
+#endif
