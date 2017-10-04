@@ -208,6 +208,10 @@ void 		write_text(SDL_Renderer *renderer, Text &tx) {
 	SDL_RenderCopy(renderer, tx.getTexture(), nullptr, &tmp_rect);
 	tmp_rect = tx.getScore_rect();
 	SDL_RenderCopy(renderer, tx.getScoreTexture(), nullptr, &tmp_rect);
+	for (int i = 0; i < 7; i++) {
+		tmp_rect = tx.getkeys_rect(i);
+		SDL_RenderCopy(renderer, tx.getKeysTexture(i), nullptr, &tmp_rect);
+	}
 }
 
 TTF_Font	*create_text_style() {

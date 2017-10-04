@@ -16,8 +16,6 @@
 #include <ctime>
 #include <vector>
 
-
-
 using namespace std;
 
 class Balls;
@@ -38,6 +36,8 @@ void		Destroy_Win(SDL_Renderer *renderer,
 				 SDL_Window *window, SDL_Texture *texture);
 
 void		error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window);
+
+/** final **/
 
 bool 		you_win(SDL_Renderer *renderer);
 bool		game_over(SDL_Renderer *renderer);

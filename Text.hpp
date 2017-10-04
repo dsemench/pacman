@@ -13,10 +13,15 @@ private:
 	SDL_Color	_blue;
 	SDL_Texture	*_score;
 	SDL_Rect	_score_rect;
+	SDL_Texture	*_keys[7];
+	SDL_Rect	_keys_rect[7];
+
 public:
 	Text(SDL_Renderer *renderer);
 	SDL_Texture	*getScoreTexture() { return _score; };
 	SDL_Rect getScore_rect() { return _score_rect; };
+	SDL_Texture	*getKeysTexture(int i) { return _keys[i]; };
+	SDL_Rect getkeys_rect(int i) { return _keys_rect[i]; };
 };
 
 
