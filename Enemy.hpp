@@ -5,10 +5,12 @@
 #ifndef PACMAN_ENEMY_HPP
 #define PACMAN_ENEMY_HPP
 
-#include "General_win.hpp"
-#include "headers.hpp"
+//#include "General_win.hpp"
+//#include "headers.hpp"
 
-class Enemy : public General_win {
+#include "Hight_cl.hpp"
+//class Enemy : public General_win {
+class Enemy : public Hight_cl {
 private:
 	bool _hunt;
 	bool _run;

@@ -35,7 +35,9 @@ Map::Map(SDL_Renderer *renderer) {
 	_map[27] = 33535998;
 	_map[28] = 0;
 
-	setSurfaceDraw("./images/map.png", renderer);
+//	setSurfaceDraw("./images/map.png", renderer);
+
+	_texture = SetSurfaceDraw("./images/map.png", renderer);
 
 	_rect.h = 620;//hight
 	_rect.w = 560;//width

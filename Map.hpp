@@ -5,9 +5,11 @@
 #ifndef PACMAN_MAP_HPP
 #define PACMAN_MAP_HPP
 
-#include "General_win.hpp"
+//#include "General_win.hpp"
+#include "Hight_cl.hpp"
 
-class Map : public General_win {
+//class Map : public General_win {
+class Map : public Hight_cl {
 private:
 	int _map[29];
 public:

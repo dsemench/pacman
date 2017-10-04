@@ -11,6 +11,7 @@ Pacman::Pacman(SDL_Renderer *renderer) {
 	_rect.w = 20;//width
 	_rect.y = 20 + (22 * 20);// vertical pos
 	_rect.x = 140 + (12 * 20) + 10;//horizontal pos
+/*
 	setSurfaceDraw("./images/pacman/puc.png", renderer);
 	_arr_texture[0] = _texture;
 	setSurfaceDraw("./images/pacman/puo.png", renderer);
@@ -27,6 +28,16 @@ Pacman::Pacman(SDL_Renderer *renderer) {
 	_arr_texture[6] = _texture;
 	setSurfaceDraw("./images/pacman/pro.png", renderer);
 	_arr_texture[7] = _texture;
+*/
+	_arr_texture[0] = SetSurfaceDraw("./images/pacman/puc.png", renderer);
+	_arr_texture[1] = SetSurfaceDraw("./images/pacman/puo.png", renderer);
+	_arr_texture[2] = SetSurfaceDraw("./images/pacman/pdc.png", renderer);
+	_arr_texture[3] = SetSurfaceDraw("./images/pacman/pdo.png", renderer);
+	_arr_texture[4] = SetSurfaceDraw("./images/pacman/plc.png", renderer);
+	_arr_texture[5] = SetSurfaceDraw("./images/pacman/plo.png", renderer);
+	_arr_texture[6] = SetSurfaceDraw("./images/pacman/prc.png", renderer);
+	_arr_texture[7] = SetSurfaceDraw("./images/pacman/pro.png", renderer);
+
 	_texture = _arr_texture[0];
 }
 

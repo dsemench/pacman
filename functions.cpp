@@ -82,3 +82,75 @@ bool to_start_pos(vector<Enemy*> &en, Pacman &Pac) {
 
 	return false;
 }
+
+void error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window) {
+	switch (i) {
+		case 1:
+			cout << "SDL_Init Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
+		case 2:
+			cout << "SDL_CreateWindow Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
+		case 3:
+			SDL_DestroyWindow(window);
+			cout << "SDL_CreateRenderer Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
+		case 4:
+			SDL_DestroyRenderer(renderer);
+			SDL_DestroyWindow(window);
+			cout << "SDL_Load Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
+		case 5:
+			SDL_DestroyRenderer(renderer);
+			SDL_DestroyWindow(window);
+			cout << "SDL_CreateTextureFromSurface Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
+	}
+	SDL_Quit();
+	exit(1);
+}
+
+void DrawWindow(SDL_Renderer **renderer, SDL_Window *window) {
+
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
+		throw 1;
+	}
+	window = SDL_CreateWindow("Pacman",
+							  800, 500, 800, 620, SDL_WINDOW_SHOWN);
+	if (window == nullptr){
+		throw 2;
+	}
+	*renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+	if (*renderer == nullptr){
+		throw 3;
+	}
+}
+
+SDL_Texture *SetSurfaceDraw(const char *image, SDL_Renderer *renderer) {
+	SDL_Surface		*picture;
+	SDL_Texture		*tmp_texture = nullptr;
+
+	picture = IMG_Load(image);
+	if (picture == nullptr){
+		throw 4;
+	}
+	tmp_texture = SDL_CreateTextureFromSurface(renderer, picture);
+	SDL_FreeSurface(picture);
+	if (tmp_texture == nullptr){
+		throw 5;
+	}
+	return tmp_texture;
+}
+
+void Destroy_Win(SDL_Renderer *renderer,
+				 SDL_Window *window, SDL_Texture *texture) {
+	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+}

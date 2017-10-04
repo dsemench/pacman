@@ -5,9 +5,11 @@
 #ifndef PACMAN_BALLS_HPP
 #define PACMAN_BALLS_HPP
 
-#include "General_win.hpp"
+//#include "General_win.hpp"
+#include "Hight_cl.hpp"
 
-class Balls : public General_win {
+//class Balls : public General_win {
+class Balls : public Hight_cl {
 private:
 	bool _ball_big;
 public:

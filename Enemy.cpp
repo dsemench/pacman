@@ -18,9 +18,13 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	_rect.x = 140 + (9 * 20) + (20 * i);
 	_rect.y = 20 + (12 * 20);
 //	_rect.y = 20 + (16 * 20);
+/*
 	address_img = "./images/enemy/" + to_string(i) + to_string(1) + ".png";
-	setSurfaceDraw(address_img.c_str(), renderer);
-	_arr_texture[3] = _texture;
+//	setSurfaceDraw(address_img.c_str(), renderer);
+//	_arr_texture[3] = _texture;
+	_arr_texture[3] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+
 	address_img = "./images/enemy/" + to_string(i) + to_string(2) + ".png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[1] = _texture;
@@ -46,6 +50,35 @@ Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	address_img = "./images/enemy/" + to_string(61) + ".png";
 	setSurfaceDraw(address_img.c_str(), renderer);
 	_arr_texture[4] = _texture;
+*/
+
+	address_img = "./images/enemy/" + to_string(i) + to_string(1) + ".png";
+	_arr_texture[3] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/" + to_string(i) + to_string(2) + ".png";
+	_arr_texture[1] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/" + to_string(i) + to_string(3) + ".png";
+	_arr_texture[2] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/" + to_string(i) + to_string(4) + ".png";
+	_arr_texture[0] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/G1.png";
+	_arr_texture[5] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/G3.png";
+	_arr_texture[6] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/G2.png";
+	_arr_texture[7] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/G4.png";
+	_arr_texture[8] = SetSurfaceDraw(address_img.c_str(), renderer);
+
+	address_img = "./images/enemy/" + to_string(61) + ".png";
+	_arr_texture[4] = SetSurfaceDraw(address_img.c_str(), renderer);
+
 	_texture = _arr_texture[1];
 	_hunt = true;
 
