@@ -7,6 +7,7 @@
 #include "Map.hpp"
 #include "Pacman.hpp"
 #include "Enemy.hpp"
+#include "Text.hpp"
 
 //поменяй координаты где появляется окно
 //скорость задержки
@@ -20,6 +21,7 @@ int	main() {
 	vector<Enemy*>	en;
 	Map				*Mp = nullptr;
 	Pacman			*Pac = nullptr;
+	Text			*Tx = nullptr;
 
 	SDL_Window		*window = nullptr;
 	SDL_Texture		*texture = nullptr;
@@ -36,6 +38,7 @@ int	main() {
 
 		Mp = new Map(renderer);
 		Pac = new Pacman(renderer);
+		Tx = new Text(renderer);
 		initBall(renderer, ball, life, en, Mp->getMap());
 	}
 	catch (int i) {
@@ -122,7 +125,9 @@ int	main() {
 							continue ;
 						}
 						else {
-							exit = true;
+							exit = pause = game_over(renderer);
+							game_pause(pause);
+							continue ;
 						}
 					}
 					else {
@@ -136,6 +141,8 @@ int	main() {
 		tmp_rect = Pac->getRect();
 		SDL_RenderCopy(renderer, Pac->getTexture(), nullptr, &tmp_rect);
 
+		write_text(renderer, *Tx);
+
 		SDL_RenderPresent(renderer);
 
 		if (ball.size() == 0)
@@ -148,11 +155,7 @@ int	main() {
 				else
 					Pac->action(event);
 		}
-		while (pause) {
-			while (SDL_PollEvent(&event) != 0 && event.type == SDL_KEYUP) {
-				pause = false;
-			}
-		}
+		game_pause(pause);
 	}
 	Destroy_Win(renderer, window, texture);
 	return 0;

@@ -6,6 +6,7 @@
 #include "Balls.hpp"
 #include "Enemy.hpp"
 #include "Pacman.hpp"
+#include "Text.hpp"
 
 
 bool		getRoad(int y, int x, int *map) {
@@ -108,7 +109,26 @@ void		error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window) {
 			cout << "SDL_CreateTextureFromSurface Error: "
 				 << SDL_GetError() << std::endl;
 			break ;
+		case 6:
+			SDL_DestroyRenderer(renderer);
+			SDL_DestroyWindow(window);
+			cout << "TTF_Init Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
+		case 7:
+			SDL_DestroyRenderer(renderer);
+			SDL_DestroyWindow(window);
+			cout << "TTF_OpenFont Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
+		case 8:
+			SDL_DestroyRenderer(renderer);
+			SDL_DestroyWindow(window);
+			cout << "TTF_RenderText_Solid Error: "
+				 << SDL_GetError() << std::endl;
+			break ;
 	}
+	TTF_Quit();
 	SDL_Quit();
 	exit(1);
 }
@@ -150,6 +170,7 @@ void		Destroy_Win(SDL_Renderer *renderer,
 	SDL_DestroyTexture(texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	TTF_Quit();
 	SDL_Quit();
 }
 
@@ -161,7 +182,68 @@ bool 		you_win(SDL_Renderer *renderer) {
 	tmp_rect.y = 0;
 	tmp_rect.x = 120;
 
-	SDL_RenderCopy(renderer, SetSurfaceDraw("./images/YouWin.png", renderer), nullptr, &tmp_rect);
+	SDL_RenderCopy(renderer, SetSurfaceDraw("./images/you_win.png", renderer), nullptr, &tmp_rect);
 	SDL_RenderPresent(renderer);
 	return true;
+}
+
+bool		game_over(SDL_Renderer *renderer) {
+	SDL_Rect tmp_rect;
+
+	tmp_rect.h = 400;
+	tmp_rect.w = 800;
+	tmp_rect.y = 110;
+	tmp_rect.x = 0;
+
+	SDL_RenderCopy(renderer, SetSurfaceDraw("./images/game_over.png", renderer), nullptr, &tmp_rect);
+	SDL_RenderPresent(renderer);
+	return true;
+
+}
+
+void 		write_text(SDL_Renderer *renderer, Text &tx) {
+	SDL_Rect		tmp_rect;
+
+	tmp_rect = tx.getRect();
+	SDL_RenderCopy(renderer, tx.getTexture(), nullptr, &tmp_rect);
+	tmp_rect = tx.getScore_rect();
+	SDL_RenderCopy(renderer, tx.getScoreTexture(), nullptr, &tmp_rect);
+}
+
+TTF_Font	*create_text_style() {
+	TTF_Font *Sans;
+
+	if (TTF_Init() != 0) {
+		throw 6;
+	}
+		Sans = TTF_OpenFont("./font/Underground.ttf", 5); //шрифт и размер
+	if (Sans == nullptr) {
+		throw 7;
+	}
+	return Sans;
+}
+
+SDL_Texture	*words_text(SDL_Renderer *renderer, TTF_Font *Sans, SDL_Color Blue, const char *str) {
+	SDL_Surface* Message;
+	SDL_Texture* Message_texture;
+
+	Message = TTF_RenderText_Solid(Sans, str, Blue); //для создания текста
+	if (Message == nullptr) {
+		throw 8;
+	}
+	Message_texture = SDL_CreateTextureFromSurface(renderer, Message); //now you can convert it into a texture
+	if (Message_texture == nullptr) {
+		throw 5;
+	}
+	return Message_texture;
+}
+
+void 		game_pause(bool &pause) {
+	SDL_Event event;
+
+	while (pause) {
+		while (SDL_PollEvent(&event) != 0 && event.type == SDL_KEYUP) {
+			pause = false;
+		}
+	}
 }

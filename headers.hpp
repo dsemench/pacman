@@ -7,7 +7,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2_image/SDL_image.h"
-//#include "SDL2_ttf/SDL_ttf.h"
+#include "SDL2_ttf/SDL_ttf.h"
 
 #include <iostream>
 #include <cstddef>
@@ -23,6 +23,7 @@ using namespace std;
 class Balls;
 class Enemy;
 class Pacman;
+class Text;
 
 bool		getRoad(int y, int x, int *map);
 void		initBall(SDL_Renderer *renderer, vector<Balls*> &ball,
@@ -39,5 +40,14 @@ void		Destroy_Win(SDL_Renderer *renderer,
 void		error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window);
 
 bool 		you_win(SDL_Renderer *renderer);
+bool		game_over(SDL_Renderer *renderer);
 
+/** text part **/
+void 		write_text(SDL_Renderer *renderer, Text &tx);
+TTF_Font	*create_text_style();
+SDL_Texture	*words_text(SDL_Renderer *renderer, TTF_Font *Sans, SDL_Color Blue, const char *str);
+
+/** pause **/
+
+void		game_pause(bool &pause);
 #endif
