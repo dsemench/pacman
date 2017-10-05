@@ -216,7 +216,6 @@ void		Enemy::go_out_home(int *map) {
 	int x = _rect.x - 140, y = _rect.y - 20;//current position
 
 	if (finish_mov_pos()) {
-//		go_to_pos(createVecChoise(y, x, map), 9, 12, y, x);
 		go_to_pos(createVecChoise(y, x, map), 9, 14, y, x);
 		makeFirst_step();
 		old_y_x[0] = y;
