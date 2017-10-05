@@ -2,9 +2,6 @@
 // Created by Dmitro Semenchuk on 9/26/17.
 //
 
-#ifndef PACMAN_ENEMY_HPP
-#define PACMAN_ENEMY_HPP
-
 #include "Hight_cl.hpp"
 
 class Enemy : public Hight_cl {
@@ -38,4 +35,3 @@ public:
 };
 
 
-#endif

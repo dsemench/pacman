@@ -122,6 +122,7 @@ int	main() {
 						if (life.size()) {
 							life.erase(life.end() - 1);
 							try_again = true;
+							game_pause(pause);
 							continue ;
 						}
 						else {
@@ -141,7 +142,7 @@ int	main() {
 		tmp_rect = Pac->getRect();
 		SDL_RenderCopy(renderer, Pac->getTexture(), nullptr, &tmp_rect);
 
-		write_text(renderer, *Tx);
+		write_text(renderer, *Tx, ball.size());
 
 		SDL_RenderPresent(renderer);
 

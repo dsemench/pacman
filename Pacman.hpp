@@ -2,9 +2,6 @@
 // Created by Dmitro Semenchuk on 9/25/17.
 //
 
-#ifndef PACMAN_PACMAN_HPP
-#define PACMAN_PACMAN_HPP
-
 #include "Hight_cl.hpp"
 
 class Pacman : public Hight_cl {
@@ -20,6 +17,3 @@ public:
 	void travel(int *map);
 	void changePic(int vect);
 };
-
-
-#endif

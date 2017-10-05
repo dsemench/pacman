@@ -42,4 +42,3 @@ Map::Map(SDL_Renderer *renderer) {
 	_rect.y = 0;
 	_rect.x = 120;
 };
-

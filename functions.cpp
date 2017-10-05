@@ -201,13 +201,32 @@ bool		game_over(SDL_Renderer *renderer) {
 
 }
 
-void 		write_text(SDL_Renderer *renderer, Text &tx) {
-	SDL_Rect		tmp_rect;
+void 		game_pause(bool &pause) {
+	SDL_Event event;
 
+	while (pause) {
+		while (SDL_PollEvent(&event) != 0 && event.type == SDL_KEYUP) {
+			pause = false;
+		}
+	}
+}
+
+void 		write_text(SDL_Renderer *renderer, Text &tx, size_t num_score) {
+	SDL_Rect		tmp_rect;
+	SDL_Texture		*score_num_txt;
+	string			num;
+
+	num = to_string((244 - num_score) * 100);
 	tmp_rect = tx.getRect();
 	SDL_RenderCopy(renderer, tx.getTexture(), nullptr, &tmp_rect);
 	tmp_rect = tx.getScore_rect();
 	SDL_RenderCopy(renderer, tx.getScoreTexture(), nullptr, &tmp_rect);
+	score_num_txt = words_text(renderer, tx.getSans(), tx.getColor(), num.c_str());
+	tmp_rect.h = 15;
+	tmp_rect.w = 80;
+	tmp_rect.y = 40;
+	tmp_rect.x = 20;
+	SDL_RenderCopy(renderer, score_num_txt, nullptr, &tmp_rect);
 	for (int i = 0; i < 7; i++) {
 		tmp_rect = tx.getkeys_rect(i);
 		SDL_RenderCopy(renderer, tx.getKeysTexture(i), nullptr, &tmp_rect);
@@ -220,7 +239,7 @@ TTF_Font	*create_text_style() {
 	if (TTF_Init() != 0) {
 		throw 6;
 	}
-		Sans = TTF_OpenFont("./font/Underground.ttf", 5); //шрифт и размер
+		Sans = TTF_OpenFont("./font/Gameplay.ttf", 15); //шрифт и размер
 	if (Sans == nullptr) {
 		throw 7;
 	}
@@ -242,12 +261,3 @@ SDL_Texture	*words_text(SDL_Renderer *renderer, TTF_Font *Sans, SDL_Color Blue, 
 	return Message_texture;
 }
 
-void 		game_pause(bool &pause) {
-	SDL_Event event;
-
-	while (pause) {
-		while (SDL_PollEvent(&event) != 0 && event.type == SDL_KEYUP) {
-			pause = false;
-		}
-	}
-}

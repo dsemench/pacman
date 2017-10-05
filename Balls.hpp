@@ -2,9 +2,6 @@
 // Created by Dmitro Semenchuk on 9/22/17.
 //
 
-#ifndef PACMAN_BALLS_HPP
-#define PACMAN_BALLS_HPP
-
 #include "Hight_cl.hpp"
 
 class Balls : public Hight_cl {
@@ -16,4 +13,3 @@ public:
 	bool	getBallsize() { return _ball_big; };
 };
 
-#endif

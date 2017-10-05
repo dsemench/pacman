@@ -2,9 +2,6 @@
 // Created by Dmitro Semenchuk on 10/4/17.
 //
 
-#ifndef PACMAN_TEXT_HPP
-#define PACMAN_TEXT_HPP
-
 #include "Hight_cl.hpp"
 
 class Text : public Hight_cl {
@@ -22,7 +19,7 @@ public:
 	SDL_Rect getScore_rect() { return _score_rect; };
 	SDL_Texture	*getKeysTexture(int i) { return _keys[i]; };
 	SDL_Rect getkeys_rect(int i) { return _keys_rect[i]; };
+	TTF_Font *getSans() { return _sans; };
+	SDL_Color getColor() { return _blue; };
 };
 
-
-#endif //PACMAN_TEXT_HPP

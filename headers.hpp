@@ -2,9 +2,6 @@
 // Created by Dmitro Semenchuk on 9/25/17.
 //
 
-#ifndef PACMAN_HEADERS_HPP
-#define PACMAN_HEADERS_HPP
-
 #include "SDL2/SDL.h"
 #include "SDL2_image/SDL_image.h"
 #include "SDL2_ttf/SDL_ttf.h"
@@ -41,13 +38,9 @@ void		error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window);
 
 bool 		you_win(SDL_Renderer *renderer);
 bool		game_over(SDL_Renderer *renderer);
+void		game_pause(bool &pause);
 
 /** text part **/
-void 		write_text(SDL_Renderer *renderer, Text &tx);
-TTF_Font	*create_text_style();
 SDL_Texture	*words_text(SDL_Renderer *renderer, TTF_Font *Sans, SDL_Color Blue, const char *str);
-
-/** pause **/
-
-void		game_pause(bool &pause);
-#endif
+void 		write_text(SDL_Renderer *renderer, Text &tx, size_t num_score);
+TTF_Font	*create_text_style();
