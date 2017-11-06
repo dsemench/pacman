@@ -2,8 +2,8 @@
 // Created by Dmitro Semenchuk on 10/4/17.
 //
 
-#ifndef PACMAN_HIGHT_CL_HPP
-#define PACMAN_HIGHT_CL_HPP
+#ifndef HIGHT_CL_HPP
+#define HIGHT_CL_HPP
 
 #include "headers.hpp"
 
@@ -17,5 +17,4 @@ public:
 	SDL_Texture		*getTexture() { return _texture; };
 };
 
-
-#endif //PACMAN_HIGHT_CL_HPP
+#endif

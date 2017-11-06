@@ -44,7 +44,6 @@ int			Enemy::makeRand(int r) {
 	int res;
 
 	res = rand() % r + 1;
-//	std::cout << "rand = " << res << "\n";
 	return res;
 }
 
@@ -55,7 +54,7 @@ void		Enemy::action(int *map) {
 
 	if (_hunt)
 		_texture = _arr_texture[vect - 1];
-	if (vect != 0 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {//make virtual for two classes
+	if (vect != 0 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {
 		finish_mov_pos();
 		if (_rect.y % 20 == 0 && _rect.x % 20 == 0)
 			check = true;
@@ -122,14 +121,10 @@ void		Enemy::changeimg(bool condition, bool run) {
 }
 
 int			Enemy::makeChoice(int y, int x, int *map) {
-	vector<int> choise;
-	int res = 0;
+	vector<int>	choise;
+	int			res = 0;
 
 	choise = createVecChoise(y, x, map);
-//	for (size_t i = 0; i < choise.size() && !res; i++) {
-//		cout << choise[i] << " ";
-//	}
-//	cout << "\n";
 	if (choise.size() > 1) {
 		while (!res) {
 			int tmp;
@@ -189,8 +184,8 @@ void		Enemy::makeFirst_step() {
 }
 
 void		Enemy::runhome(int *map) {
-	vector<int> choise;
-	int x = _rect.x - 140, y = _rect.y - 20;//current position
+	vector<int>	choise;
+	int			x = _rect.x - 140, y = _rect.y - 20;
 
 	if (finish_mov_pos()) {
 		choise = createVecChoise(y, x, map);
@@ -213,7 +208,7 @@ void		Enemy::runhome(int *map) {
 }
 
 void		Enemy::go_out_home(int *map) {
-	int x = _rect.x - 140, y = _rect.y - 20;//current position
+	int x = _rect.x - 140, y = _rect.y - 20;
 
 	if (finish_mov_pos()) {
 		go_to_pos(createVecChoise(y, x, map), 9, 14, y, x);

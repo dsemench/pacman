@@ -62,7 +62,7 @@ void	Pacman::changePic(int vect) {
 
 void	Pacman::travel(int *map){
 	static int vect;
-	int x = _rect.x - 140, y = _rect.y - 20;//сократить обьявление переменных
+	int x = _rect.x - 140, y = _rect.y - 20;
 	int min = 1;
 
 	if (vect != 0 && _rect.x != 390 && (_rect.y % 20 != 0 || _rect.x % 20 != 0)) {

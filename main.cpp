@@ -10,8 +10,6 @@
 #include "Text.hpp"
 
 //поменяй координаты где появляется окно
-//скорость задержки
-
 
 int	main() {
 
@@ -67,7 +65,7 @@ int	main() {
 			if (SDL_RectEquals(&tmp_rect1, &tmp_rect)) {
 				if (ball[i]->getBallsize()) {
 					for (size_t i = 0; i < en.size(); i++) {
-						en[i]->get_set_eat() += 20000;
+						en[i]->get_set_eat() += 5000;
 					}
 				}
 				ball.erase(ball.begin() + i);
@@ -161,4 +159,3 @@ int	main() {
 	Destroy_Win(renderer, window, texture);
 	return 0;
 }
-

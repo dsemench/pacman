@@ -16,10 +16,10 @@ private:
 public:
 	Text(SDL_Renderer *renderer);
 	SDL_Texture	*getScoreTexture() { return _score; };
-	SDL_Rect getScore_rect() { return _score_rect; };
+	SDL_Rect	getScore_rect() { return _score_rect; };
 	SDL_Texture	*getKeysTexture(int i) { return _keys[i]; };
-	SDL_Rect getkeys_rect(int i) { return _keys_rect[i]; };
-	TTF_Font *getSans() { return _sans; };
-	SDL_Color getColor() { return _blue; };
+	SDL_Rect	getkeys_rect(int i) { return _keys_rect[i]; };
+	TTF_Font	*getSans() { return _sans; };
+	SDL_Color	getColor() { return _blue; };
 };
 

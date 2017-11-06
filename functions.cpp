@@ -11,10 +11,6 @@
 
 bool		getRoad(int y, int x, int *map) {
 
-//	if (y < 12 || y > 17 || x < 11 || x > 16) {
-//		cout << "pos x = " << x << "\n";
-//		cout << "pos y = " << y << "\n";
-//	}
 	if (y < 0 || y > 28 || x < 0 || x > 25)
 		return true;
 	x = (x * -1) + 25;
@@ -56,6 +52,7 @@ void		initBall(SDL_Renderer *renderer, vector<Balls*> &ball,
 
 SDL_Point	take_SDL_point(SDL_Rect rect) {
 	SDL_Point res;
+
 	res.x = rect.x;
 	res.y = rect.y;
 	return res;
@@ -150,7 +147,7 @@ void		DrawWindow(SDL_Renderer **renderer, SDL_Window *window) {
 }
 
 SDL_Texture	*SetSurfaceDraw(const char *image, SDL_Renderer *renderer) {
-	SDL_Surface		*picture;
+	SDL_Surface		*picture = nullptr;
 	SDL_Texture		*tmp_texture = nullptr;
 
 	picture = IMG_Load(image);
@@ -213,7 +210,7 @@ void 		game_pause(bool &pause) {
 
 void 		write_text(SDL_Renderer *renderer, Text &tx, size_t num_score) {
 	SDL_Rect		tmp_rect;
-	SDL_Texture		*score_num_txt;
+	SDL_Texture		*score_num_txt = nullptr;
 	string			num;
 
 	num = to_string((244 - num_score) * 100);
@@ -234,7 +231,7 @@ void 		write_text(SDL_Renderer *renderer, Text &tx, size_t num_score) {
 }
 
 TTF_Font	*create_text_style() {
-	TTF_Font *Sans;
+	TTF_Font *Sans  = nullptr;;
 
 	if (TTF_Init() != 0) {
 		throw 6;
@@ -247,8 +244,8 @@ TTF_Font	*create_text_style() {
 }
 
 SDL_Texture	*words_text(SDL_Renderer *renderer, TTF_Font *Sans, SDL_Color Blue, const char *str) {
-	SDL_Surface* Message;
-	SDL_Texture* Message_texture;
+	SDL_Surface* Message = nullptr;
+	SDL_Texture* Message_texture  = nullptr;
 
 	Message = TTF_RenderText_Solid(Sans, str, Blue); //для создания текста
 	if (Message == nullptr) {

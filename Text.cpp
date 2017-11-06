@@ -10,7 +10,7 @@ Text::Text(SDL_Renderer *renderer) {
 	_blue.b = 255;
 	_blue.a = _blue.g = _blue.r = 0;
 	_score_rect.h = 15;
-	_score_rect.w = 70;//50
+	_score_rect.w = 70;
 	_score_rect.y = 20;
 	_score_rect.x = 10;
 
@@ -29,7 +29,7 @@ Text::Text(SDL_Renderer *renderer) {
 	_keys[6] = words_text(renderer, _sans, _blue, "key esc   exit ");
 	for (int i = 0; i < 7; i++) {
 		_keys_rect[i].h = 12;
-		_keys_rect[i].w = 140;//140
+		_keys_rect[i].w = 140;
 		_keys_rect[i].y = 210 + (25 * i);
 		_keys_rect[i].x = 600;
 	}

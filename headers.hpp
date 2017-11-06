@@ -26,7 +26,6 @@ void		initBall(SDL_Renderer *renderer, vector<Balls*> &ball,
 SDL_Point	take_SDL_point(SDL_Rect rect);
 bool		to_start_pos(vector<Enemy*> &en, Pacman &Pac);
 
-
 void		DrawWindow(SDL_Renderer **renderer, SDL_Window *window);
 SDL_Texture	*SetSurfaceDraw(const char *image, SDL_Renderer *renderer);
 void		Destroy_Win(SDL_Renderer *renderer,
@@ -34,13 +33,10 @@ void		Destroy_Win(SDL_Renderer *renderer,
 
 void		error_SDL(int i, SDL_Renderer *renderer, SDL_Window *window);
 
-/** final **/
-
 bool 		you_win(SDL_Renderer *renderer);
 bool		game_over(SDL_Renderer *renderer);
 void		game_pause(bool &pause);
 
-/** text part **/
 SDL_Texture	*words_text(SDL_Renderer *renderer, TTF_Font *Sans, SDL_Color Blue, const char *str);
 void 		write_text(SDL_Renderer *renderer, Text &tx, size_t num_score);
 TTF_Font	*create_text_style();
