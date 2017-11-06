@@ -2,6 +2,7 @@
 // Created by Dmitro Semenchuk on 9/21/17.
 //
 
+#include "headers.hpp"
 #include "Hight_cl.hpp"
 #include "Balls.hpp"
 #include "Map.hpp"
@@ -9,7 +10,6 @@
 #include "Enemy.hpp"
 #include "Text.hpp"
 
-//поменяй координаты где появляется окно
 
 int	main() {
 
@@ -68,7 +68,10 @@ int	main() {
 						en[i]->get_set_eat() += 5000;
 					}
 				}
+				Balls *tmp_bl;
+				tmp_bl = ball.at(i);
 				ball.erase(ball.begin() + i);
+				delete tmp_bl;
 				i--;
 			}
 			else

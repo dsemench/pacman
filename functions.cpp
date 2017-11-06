@@ -136,7 +136,7 @@ void		DrawWindow(SDL_Renderer **renderer, SDL_Window *window) {
 		throw 1;
 	}
 	window = SDL_CreateWindow("Pacman",
-							  800, 500, 800, 620, SDL_WINDOW_SHOWN);
+							  0, 0, 800, 620, SDL_WINDOW_SHOWN);
 	if (window == nullptr){
 		throw 2;
 	}
@@ -231,12 +231,12 @@ void 		write_text(SDL_Renderer *renderer, Text &tx, size_t num_score) {
 }
 
 TTF_Font	*create_text_style() {
-	TTF_Font *Sans  = nullptr;;
+	TTF_Font *Sans  = nullptr;
 
 	if (TTF_Init() != 0) {
 		throw 6;
 	}
-		Sans = TTF_OpenFont("./font/Gameplay.ttf", 15); //шрифт и размер
+	Sans = TTF_OpenFont("./font/Gameplay.ttf", 15); //шрифт и размер
 	if (Sans == nullptr) {
 		throw 7;
 	}
@@ -251,10 +251,12 @@ SDL_Texture	*words_text(SDL_Renderer *renderer, TTF_Font *Sans, SDL_Color Blue, 
 	if (Message == nullptr) {
 		throw 8;
 	}
+
 	Message_texture = SDL_CreateTextureFromSurface(renderer, Message); //now you can convert it into a texture
 	if (Message_texture == nullptr) {
 		throw 5;
 	}
+	SDL_FreeSurface(Message);
 	return Message_texture;
 }
 

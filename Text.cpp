@@ -15,7 +15,7 @@ Text::Text(SDL_Renderer *renderer) {
 	_score_rect.x = 10;
 
 	_rect.h = 15;
-	_rect.w = 70;//50
+	_rect.w = 70;
 	_rect.y = 560;
 	_rect.x = 10;
 	_texture = words_text(renderer, _sans, _blue, "Lifes");
