@@ -1,12 +1,12 @@
 NAME = Pacman
 
-FLAGS = -Wall -Wextra -Werror -F.
+FLAGS = -Wall -Wextra -Werror -std=c++0x
 
 SRC = main.cpp Map.cpp Balls.cpp Enemy.cpp Pacman.cpp Text.cpp functions.cpp
 
 OB = $(SRC:.cpp=.o)
 
-FR = -framework SDL2_image -framework SDL2 -framework SDL2_ttf
+FR = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 all: $(NAME)
 

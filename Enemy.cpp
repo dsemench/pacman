@@ -3,6 +3,7 @@
 //
 
 #include "Enemy.hpp"
+#include <algorithm>
 
 Enemy::Enemy(int i, SDL_Renderer *renderer) {
 	string address_img;

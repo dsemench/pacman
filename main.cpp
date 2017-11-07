@@ -32,7 +32,7 @@ int	main() {
 	pause = true;
 	try {
 		DrawWindow(&renderer, window);
-		texture = SetSurfaceDraw("./images/back-ground.jpeg", renderer);
+		texture = SetSurfaceDraw("./images/blacker-black.png", renderer);
 
 		Mp = new Map(renderer);
 		Pac = new Pacman(renderer);
